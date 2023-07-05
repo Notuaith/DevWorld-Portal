@@ -4,7 +4,7 @@ import 'package:portal/commons/utils.dart';
 import 'package:portal/data/data_sorce/calendar_data_source.dart';
 import 'package:portal/data/models/appointement_model.dart';
 import 'package:portal/presentations/state_management/appointment_detail_provider.dart';
-import 'package:portal/presentations/state_management/appointment_provider.dart';
+import 'package:portal/presentations/state_management/appointment_list_provider.dart';
 import 'package:portal/presentations/state_management/user_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';

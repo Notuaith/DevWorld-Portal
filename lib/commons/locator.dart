@@ -9,26 +9,25 @@ import 'package:portal/data/services/interfaces/document_service.dart';
 import 'package:portal/data/services/interfaces/memo_service.dart';
 import 'package:portal/data/services/interfaces/notification_service.dart';
 import 'package:portal/data/services/interfaces/appointment_service.dart';
- import 'package:portal/data/services/interfaces/user_service.dart';
+import 'package:portal/data/services/interfaces/user_service.dart';
 import 'package:portal/data/services/memo_service_impl.dart';
 import 'package:portal/data/services/notification_service_impl.dart';
 import 'package:portal/data/services/appointment_service_impl.dart';
- import 'package:portal/data/services/user_service_impl.dart';
+import 'package:portal/data/services/user_service_impl.dart';
 import 'package:portal/firebase_options.dart';
 import 'package:portal/presentations/state_management/appointment_detail_provider.dart';
- import 'package:portal/presentations/state_management/auth_provider.dart';
+import 'package:portal/presentations/state_management/auth_provider.dart';
 import 'package:portal/presentations/state_management/document_provider.dart';
 import 'package:portal/presentations/state_management/memo_provider.dart';
 import 'package:portal/presentations/state_management/new_appointment_provider.dart';
 import 'package:portal/presentations/state_management/notification_provider.dart';
- import 'package:portal/presentations/state_management/appointment_provider.dart';
+import 'package:portal/presentations/state_management/appointment_list_provider.dart';
 import 'package:portal/presentations/state_management/user_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-
 GetIt locator = GetIt.instance;
 
-Future<void> setupDi()  async{
+Future<void> setupDi() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
 
@@ -38,30 +37,47 @@ Future<void> setupDi()  async{
 
   //register provider
   locator.registerFactory(
-    () => AppointmentListProvider(appointmentService: locator(), userService: locator(), sharedPreferences: locator()),
+    () => AppointmentListProvider(
+        appointmentService: locator(),
+        userService: locator(),
+        sharedPreferences: locator()),
   );
   locator.registerFactory(
-    () => AppointmentDetailProvider(appointmentService: locator(), userService: locator(), sharedPreferences: locator()),
+    () => AppointmentDetailProvider(
+        appointmentService: locator(),
+        userService: locator(),
+        sharedPreferences: locator()),
   );
   locator.registerFactory(
-    () => DocumentListProvider(documentService: locator(), userService:locator(), sharedPreferences:locator()),
+    () => DocumentListProvider(
+        documentService: locator(),
+        userService: locator(),
+        sharedPreferences: locator()),
   );
   locator.registerFactory(
     () => AuthProvider(userService: locator(), sharedPreferences: locator()),
   );
   locator.registerFactory(
-    () => NewAppointmentProvider(userService: locator(), postService: locator(), sharedPreferences: locator()),
+    () => NewAppointmentProvider(
+        userService: locator(),
+        postService: locator(),
+        sharedPreferences: locator()),
   );
- 
+
   locator.registerFactory(
-    () => UserListProvider(sharedPreferences: locator(), userService: locator(), appointmentService: locator()),
+    () => UserListProvider(
+        sharedPreferences: locator(),
+        userService: locator(),
+        appointmentService: locator()),
   );
-  
+
   locator.registerFactory(
-    () => NotificationProvider(sharedPreferences: locator(), notificationService: locator()),
+    () => NotificationProvider(
+        sharedPreferences: locator(), notificationService: locator()),
   );
   locator.registerFactory(
-    () => MemoListProvider(sharedPreferences: locator(), memoService: locator()),
+    () =>
+        MemoListProvider(sharedPreferences: locator(), memoService: locator()),
   );
 
   //register service
@@ -75,8 +91,6 @@ Future<void> setupDi()  async{
       () => NotificationServiceImpl(firestoreService: locator()));
   locator.registerFactory<MemoService>(
       () => MemoServiceImpl(firestoreService: locator()));
-  
-
 
   //register external dependencies
   final sharedPref = await SharedPreferences.getInstance();

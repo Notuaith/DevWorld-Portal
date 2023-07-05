@@ -64,7 +64,8 @@ class AppointmentServiceImpl implements AppointmentService {
       );
 
   @override
-  Future<List<AppointmentModel>> getAllAppointmentByAndForMe({String? userId}) async =>
+  Future<List<AppointmentModel>> getAllAppointmentById(
+          {String? userId}) async =>
       await firestoreService!.collectionSnapshot(
         path: FirestorePath.appointments(),
         builder: (data, documentID) =>

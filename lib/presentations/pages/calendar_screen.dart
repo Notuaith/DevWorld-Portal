@@ -7,7 +7,7 @@ import 'package:portal/commons/utils.dart';
 import 'package:portal/data/data_sorce/calendar_data_source.dart';
 import 'package:portal/data/models/user_model.dart';
 import 'package:portal/presentations/state_management/appointment_detail_provider.dart';
-import 'package:portal/presentations/state_management/appointment_provider.dart';
+import 'package:portal/presentations/state_management/appointment_list_provider.dart';
 import 'package:portal/presentations/state_management/auth_provider.dart';
 import 'package:portal/presentations/state_management/new_appointment_provider.dart';
 import 'package:portal/presentations/state_management/user_provider.dart';
@@ -82,13 +82,6 @@ class _CalendarScreenState extends State<CalendarScreen> {
         users.length,
         (index) => PopupMenuItem(
           onTap: () {
-            // setState(() {
-            //   selectedUserID = users[index].uid;
-            //   selectedUserName = '${users[index].name} ${users[index].surname}';
-            //   context
-            //       .read<AppointmentListProvider>()
-            //       .getAppointmentsById(selectedUserID);
-            // });
             if (selectedIdsList.contains(users[index].uid)) {
               setState(() {
                 selectedIdsList.remove(users[index].uid);
@@ -218,9 +211,20 @@ class _CalendarScreenState extends State<CalendarScreen> {
                               view: CalendarView.workWeek,
                               onTap: (calendarTapDetails) async {
                                 if (calendarTapDetails.appointments != null) {
+                                  await context
+                                      .read<AppointmentDetailProvider>()
+                                      .cleanAppointmentList();
+                                  await context
+                                      .read<AppointmentDetailProvider>()
+                                      .getAppointmentUserListById(
+                                          userIds: calendarTapDetails
+                                              .appointments![0].userId);
                                   showEditDialogMobile(
                                       calendarTapDetails, users.userList!);
                                 } else {
+                                  await context
+                                      .read<AppointmentDetailProvider>()
+                                      .cleanAppointmentList();
                                   showCreateDialogMobile(
                                       calendarTapDetails, users.userList!);
                                 }
@@ -232,9 +236,20 @@ class _CalendarScreenState extends State<CalendarScreen> {
                               view: CalendarView.workWeek,
                               onTap: (calendarTapDetails) async {
                                 if (calendarTapDetails.appointments != null) {
+                                  await context
+                                      .read<AppointmentDetailProvider>()
+                                      .cleanAppointmentList();
+                                  await context
+                                      .read<AppointmentDetailProvider>()
+                                      .getAppointmentUserListById(
+                                          userIds: calendarTapDetails
+                                              .appointments![0].userId);
                                   showEditDialog(
                                       calendarTapDetails, users.userList!);
                                 } else {
+                                  await context
+                                      .read<AppointmentDetailProvider>()
+                                      .cleanAppointmentList();
                                   showCreateDialog(
                                       calendarTapDetails, users.userList!);
                                 }
@@ -797,38 +812,51 @@ class _CalendarScreenState extends State<CalendarScreen> {
                             padding: const EdgeInsets.all(8.0),
                             child: MaterialButton(
                               onPressed: () async {
+                                DateTime correctedStartDate = defaulStartTime;
+                                DateTime correctedEndDate = defaultEndTime;
+                                DateFormat format =
+                                    DateFormat("dd-MM-yyyy hh:mm:ss");
+                                bool isUserNotFree = false;
+
+                                if (dateStartController.text.isNotEmpty) {
+                                  correctedStartDate = format.parse(
+                                      '${dateStartController.text} ${hourDateStartController.text}:00');
+                                }
+                                if (dateEndController.text.isNotEmpty) {
+                                  correctedEndDate = format.parse(
+                                      '${dateEndController.text} ${hourDateEndController.text}:00');
+                                }
                                 if (selectedIdsList.isNotEmpty &&
                                     meetingNameController.text.isNotEmpty) {
-                                  if (dateStartController.text.isNotEmpty ||
-                                      dateEndController.text.isNotEmpty) {
-                                    DateFormat format =
-                                        DateFormat("dd-MM-yyyy hh:mm:ss");
-                                    var parsedStartDate = format.parse(
-                                        '${dateStartController.text} ${hourDateStartController.text}:00');
-                                    var parsedEndDate = format.parse(
-                                        '${dateEndController.text} ${hourDateEndController.text}:00');
-                                    context
-                                        .read<NewAppointmentProvider>()
-                                        .publishAppoitnemt(
-                                            userIds: selectedIdsList,
-                                            id: firestoreId(),
-                                            color: chooseColor(selectedColor),
-                                            subject: meetingNameController.text,
-                                            startDate: parsedStartDate,
-                                            endDate: parsedEndDate,
-                                            url: urlController.text);
-                                  } else {
-                                    await context
-                                        .read<NewAppointmentProvider>()
-                                        .publishAppoitnemt(
-                                            userIds: selectedIdsList,
-                                            id: firestoreId(),
-                                            color: chooseColor(selectedColor),
-                                            subject: meetingNameController.text,
-                                            startDate: defaulStartTime,
-                                            endDate: defaultEndTime,
-                                            url: urlController.text);
+                                  // await context
+                                  //     .read<AppointmentListProvider>()
+                                  //     .deleteAppointmentByMe(
+                                  //         calendarTapDetails.appointments![0]);
+                                  for (var user in selectedIdsList) {
+                                    isUserNotFree = await context
+                                        .read<AppointmentListProvider>()
+                                        .checkAvailabilitySlot(
+                                            user,
+                                            correctedStartDate,
+                                            correctedEndDate);
+                                    if (isUserNotFree) {
+                                      //mostrare errore
+                                      break;
+                                    }
                                   }
+                                  if (isUserNotFree) {
+                                    return;
+                                  }
+                                  context
+                                      .read<NewAppointmentProvider>()
+                                      .publishAppoitnemt(
+                                          userIds: selectedIdsList,
+                                          id: firestoreId(),
+                                          color: chooseColor(selectedColor),
+                                          subject: meetingNameController.text,
+                                          startDate: correctedStartDate,
+                                          endDate: correctedEndDate,
+                                          url: urlController.text);
                                   if (mounted) {
                                     AutoRouter.of(context).pop(true);
                                     await context
@@ -1435,40 +1463,52 @@ class _CalendarScreenState extends State<CalendarScreen> {
                               padding: const EdgeInsets.all(8.0),
                               child: MaterialButton(
                                 onPressed: () async {
+                                  DateTime correctedStartDate = defaulStartTime;
+                                  DateTime correctedEndDate = defaultEndTime;
+                                  DateFormat format =
+                                      DateFormat("dd-MM-yyyy hh:mm:ss");
+
+                                  if (dateStartController.text.isNotEmpty) {
+                                    correctedStartDate = format.parse(
+                                        '${dateStartController.text} ${hourDateStartController.text}:00');
+                                  }
+                                  if (dateEndController.text.isNotEmpty) {
+                                    correctedEndDate = format.parse(
+                                        '${dateEndController.text} ${hourDateEndController.text}:00');
+                                  }
                                   if (selectedIdsList.isNotEmpty &&
                                       meetingNameController.text.isNotEmpty) {
-                                    if (dateStartController.text.isNotEmpty ||
-                                        dateEndController.text.isNotEmpty) {
-                                      DateFormat format =
-                                          DateFormat("dd-MM-yyyy hh:mm:ss");
-                                      var parsedStartDate = format.parse(
-                                          '${dateStartController.text} ${hourDateStartController.text}:00');
-                                      var parsedEndDate = format.parse(
-                                          '${dateEndController.text} ${hourDateEndController.text}:00');
-                                      context
-                                          .read<NewAppointmentProvider>()
-                                          .publishAppoitnemt(
-                                              userIds: selectedIdsList,
-                                              id: firestoreId(),
-                                              color: chooseColor(selectedColor),
-                                              subject:
-                                                  meetingNameController.text,
-                                              startDate: parsedStartDate,
-                                              endDate: parsedEndDate,
-                                              url: urlController.text);
-                                    } else {
-                                      await context
-                                          .read<NewAppointmentProvider>()
-                                          .publishAppoitnemt(
-                                              userIds: selectedIdsList,
-                                              id: firestoreId(),
-                                              color: chooseColor(selectedColor),
-                                              subject:
-                                                  meetingNameController.text,
-                                              startDate: defaulStartTime,
-                                              endDate: defaultEndTime,
-                                              url: urlController.text);
+                                    for (var user in selectedIdsList) {
+                                      bool isUserNotFree = await context
+                                          .read<AppointmentListProvider>()
+                                          .checkAvailabilitySlot(
+                                              user,
+                                              correctedStartDate,
+                                              correctedEndDate);
+                                      if (isUserNotFree) {
+                                        //mostrare errore
+                                        return;
+                                      } else {
+                                        context
+                                            .read<NewAppointmentProvider>()
+                                            .publishAppoitnemt(
+                                                userIds: selectedIdsList,
+                                                id: firestoreId(),
+                                                color:
+                                                    chooseColor(selectedColor),
+                                                subject:
+                                                    meetingNameController.text,
+                                                startDate: correctedStartDate,
+                                                endDate: correctedEndDate,
+                                                url: urlController.text);
+                                      }
                                     }
+                                    await context
+                                        .read<AppointmentListProvider>()
+                                        .deleteAppointmentByMe(
+                                            calendarTapDetails
+                                                .appointments![0]);
+                                    selectedIdsList = [];
                                     if (mounted) {
                                       AutoRouter.of(context).pop(true);
                                       await context
@@ -1477,6 +1517,53 @@ class _CalendarScreenState extends State<CalendarScreen> {
                                     }
                                   }
                                 },
+                                //   if (selectedIdsList.isNotEmpty &&
+                                //       meetingNameController.text.isNotEmpty) {
+                                //     if (dateStartController.text.isNotEmpty ||
+                                //         dateEndController.text.isNotEmpty) {
+                                //       DateFormat format =
+                                //           DateFormat("dd-MM-yyyy hh:mm:ss");
+                                //       var parsedStartDate = format.parse(
+                                //           '${dateStartController.text} ${hourDateStartController.text}:00');
+                                //       var parsedEndDate = format.parse(
+                                //           '${dateEndController.text} ${hourDateEndController.text}:00');
+                                //       context
+                                //           .read<NewAppointmentProvider>()
+                                //           .publishAppoitnemt(
+                                //               userIds: selectedIdsList,
+                                //               id: firestoreId(),
+                                //               color: chooseColor(selectedColor),
+                                //               subject:
+                                //                   meetingNameController.text,
+                                //               startDate: parsedStartDate,
+                                //               endDate: parsedEndDate,
+                                //               url: urlController.text);
+                                //     } else {
+                                //       await context
+                                //           .read<NewAppointmentProvider>()
+                                //           .publishAppoitnemt(
+                                //               userIds: selectedIdsList,
+                                //               id: firestoreId(),
+                                //               color: chooseColor(selectedColor),
+                                //               subject:
+                                //                   meetingNameController.text,
+                                //               startDate: defaulStartTime,
+                                //               endDate: defaultEndTime,
+                                //               url: urlController.text);
+                                //     }
+                                //     await context
+                                //         .read<AppointmentListProvider>()
+                                //         .deleteAppointmentByMe(
+                                //             calendarTapDetails
+                                //                 .appointments![0]);
+                                //     if (mounted) {
+                                //       AutoRouter.of(context).pop(true);
+                                //       await context
+                                //           .read<AppointmentListProvider>()
+                                //           .getAppointmentsById(null);
+                                //     }
+                                //   }
+                                // },
                                 color: Colors.blue,
                                 child: const Text(
                                   'Conferma',
@@ -2272,40 +2359,58 @@ class _CalendarScreenState extends State<CalendarScreen> {
                               padding: const EdgeInsets.all(8.0),
                               child: MaterialButton(
                                 onPressed: () async {
+                                  await context
+                                      .read<AppointmentListProvider>()
+                                      .deleteAppointmentByMe(
+                                          calendarTapDetails.appointments![0]);
+                                  List<String> userIdLoaded = [];
+                                  for (var users
+                                      in detailProvider.userListById!) {
+                                    userIdLoaded.add(users.uid);
+                                  }
+                                  DateTime correctedStartDate = defaulStartTime;
+                                  DateTime correctedEndDate = defaultEndTime;
+                                  DateFormat format =
+                                      DateFormat("dd-MM-yyyy hh:mm:ss");
+                                  bool isUserNotFree = false;
+
+                                  if (dateStartController.text.isNotEmpty) {
+                                    correctedStartDate = format.parse(
+                                        '${dateStartController.text} ${hourDateStartController.text}:00');
+                                  }
+                                  if (dateEndController.text.isNotEmpty) {
+                                    correctedEndDate = format.parse(
+                                        '${dateEndController.text} ${hourDateEndController.text}:00');
+                                  }
+                                  selectedIdsList = userIdLoaded;
+
                                   if (selectedIdsList.isNotEmpty &&
                                       meetingNameController.text.isNotEmpty) {
-                                    if (dateStartController.text.isNotEmpty ||
-                                        dateEndController.text.isNotEmpty) {
-                                      DateFormat format =
-                                          DateFormat("dd-MM-yyyy hh:mm:ss");
-                                      var parsedStartDate = format.parse(
-                                          '${dateStartController.text} ${hourDateStartController.text}:00');
-                                      var parsedEndDate = format.parse(
-                                          '${dateEndController.text} ${hourDateEndController.text}:00');
-                                      context
-                                          .read<NewAppointmentProvider>()
-                                          .publishAppoitnemt(
-                                              userIds: selectedIdsList,
-                                              id: firestoreId(),
-                                              color: chooseColor(selectedColor),
-                                              subject:
-                                                  meetingNameController.text,
-                                              startDate: parsedStartDate,
-                                              endDate: parsedEndDate,
-                                              url: urlController.text);
-                                    } else {
-                                      await context
-                                          .read<NewAppointmentProvider>()
-                                          .publishAppoitnemt(
-                                              userIds: selectedIdsList,
-                                              id: firestoreId(),
-                                              color: chooseColor(selectedColor),
-                                              subject:
-                                                  meetingNameController.text,
-                                              startDate: defaulStartTime,
-                                              endDate: defaultEndTime,
-                                              url: urlController.text);
+                                    for (var user in selectedIdsList) {
+                                      isUserNotFree = await context
+                                          .read<AppointmentListProvider>()
+                                          .checkAvailabilitySlot(
+                                              user,
+                                              correctedStartDate,
+                                              correctedEndDate);
+                                      if (isUserNotFree) {
+                                        //mostrare errore
+                                        break;
+                                      }
                                     }
+                                    if (isUserNotFree) {
+                                      return;
+                                    }
+                                    context
+                                        .read<NewAppointmentProvider>()
+                                        .publishAppoitnemt(
+                                            userIds: userIdLoaded,
+                                            id: firestoreId(),
+                                            color: chooseColor(selectedColor),
+                                            subject: meetingNameController.text,
+                                            startDate: correctedStartDate,
+                                            endDate: correctedEndDate,
+                                            url: urlController.text);
                                     if (mounted) {
                                       AutoRouter.of(context).pop(true);
                                       await context
@@ -3087,50 +3192,6 @@ class _CalendarScreenState extends State<CalendarScreen> {
                             ],
                           ),
                         ),
-                        // Padding(
-                        //   padding: const EdgeInsets.all(8.0),
-                        //   child: Container(
-                        //     decoration: BoxDecoration(
-                        //         border: Border.all(
-                        //             color: Colors.black, width: 0.2)),
-                        //     width: 300,
-                        //     height: 200,
-                        //     child: ListView.builder(
-                        //       itemCount: userProvider.userList!.length,
-                        //       itemBuilder: (context, index) {
-                        //         return GestureDetector(
-                        //           onTap: () {
-                        //             if (selectedIdsList.contains(
-                        //                 userProvider
-                        //                     .userList![index].uid)) {
-                        //               setState(() {
-                        //                 selectedIdsList.remove(userProvider
-                        //                     .userList![index].uid);
-                        //               });
-                        //             } else {
-                        //               setState(() {
-                        //                 selectedIdsList.add(userProvider
-                        //                     .userList![index].uid);
-                        //               });
-                        //             }
-                        //           },
-                        //           child: Container(
-                        //               color: selectedIdsList.contains(
-                        //                       userProvider
-                        //                           .userList![index].uid)
-                        //                   ? Colors.grey
-                        //                   : Colors.white,
-                        //               child: Padding(
-                        //                 padding: const EdgeInsets.all(8.0),
-                        //                 child: Text(
-                        //                     '${userProvider.userList![index].name} ${userProvider.userList![index].surname}'),
-                        //               )),
-                        //         );
-                        //       },
-                        //     ),
-                        //   ),
-                        // ),
-
                         Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
@@ -3138,40 +3199,58 @@ class _CalendarScreenState extends State<CalendarScreen> {
                               padding: const EdgeInsets.all(8.0),
                               child: MaterialButton(
                                 onPressed: () async {
+                                  await context
+                                      .read<AppointmentListProvider>()
+                                      .deleteAppointmentByMe(
+                                          calendarTapDetails.appointments![0]);
+                                  List<String> userIdLoaded = [];
+                                  for (var users
+                                      in detailProvider.userListById!) {
+                                    userIdLoaded.add(users.uid);
+                                  }
+                                  DateTime correctedStartDate = defaulStartTime;
+                                  DateTime correctedEndDate = defaultEndTime;
+                                  DateFormat format =
+                                      DateFormat("dd-MM-yyyy hh:mm:ss");
+                                  bool isUserNotFree = false;
+
+                                  if (dateStartController.text.isNotEmpty) {
+                                    correctedStartDate = format.parse(
+                                        '${dateStartController.text} ${hourDateStartController.text}:00');
+                                  }
+                                  if (dateEndController.text.isNotEmpty) {
+                                    correctedEndDate = format.parse(
+                                        '${dateEndController.text} ${hourDateEndController.text}:00');
+                                  }
+                                  selectedIdsList = userIdLoaded;
+
                                   if (selectedIdsList.isNotEmpty &&
                                       meetingNameController.text.isNotEmpty) {
-                                    if (dateStartController.text.isNotEmpty ||
-                                        dateEndController.text.isNotEmpty) {
-                                      DateFormat format =
-                                          DateFormat("dd-MM-yyyy hh:mm:ss");
-                                      var parsedStartDate = format.parse(
-                                          '${dateStartController.text} ${hourDateStartController.text}:00');
-                                      var parsedEndDate = format.parse(
-                                          '${dateEndController.text} ${hourDateEndController.text}:00');
-                                      context
-                                          .read<NewAppointmentProvider>()
-                                          .publishAppoitnemt(
-                                              userIds: selectedIdsList,
-                                              id: firestoreId(),
-                                              color: chooseColor(selectedColor),
-                                              subject:
-                                                  meetingNameController.text,
-                                              startDate: parsedStartDate,
-                                              endDate: parsedEndDate,
-                                              url: urlController.text);
-                                    } else {
-                                      await context
-                                          .read<NewAppointmentProvider>()
-                                          .publishAppoitnemt(
-                                              userIds: selectedIdsList,
-                                              id: firestoreId(),
-                                              color: chooseColor(selectedColor),
-                                              subject:
-                                                  meetingNameController.text,
-                                              startDate: defaulStartTime,
-                                              endDate: defaultEndTime,
-                                              url: urlController.text);
+                                    for (var user in selectedIdsList) {
+                                      isUserNotFree = await context
+                                          .read<AppointmentListProvider>()
+                                          .checkAvailabilitySlot(
+                                              user,
+                                              correctedStartDate,
+                                              correctedEndDate);
+                                      if (isUserNotFree) {
+                                        //mostrare errore
+                                        break;
+                                      }
                                     }
+                                    if (isUserNotFree) {
+                                      return;
+                                    }
+                                    context
+                                        .read<NewAppointmentProvider>()
+                                        .publishAppoitnemt(
+                                            userIds: userIdLoaded,
+                                            id: firestoreId(),
+                                            color: chooseColor(selectedColor),
+                                            subject: meetingNameController.text,
+                                            startDate: correctedStartDate,
+                                            endDate: correctedEndDate,
+                                            url: urlController.text);
                                     if (mounted) {
                                       AutoRouter.of(context).pop(true);
                                       await context
