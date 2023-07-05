@@ -2358,10 +2358,10 @@ class _CalendarScreenState extends State<CalendarScreen> {
                               padding: const EdgeInsets.all(8.0),
                               child: MaterialButton(
                                 onPressed: () async {
-                                  await context
-                                      .read<AppointmentListProvider>()
-                                      .deleteAppointmentByMe(
-                                          calendarTapDetails.appointments![0]);
+                                  // await context
+                                  //     .read<AppointmentListProvider>()
+                                  //     .deleteAppointmentByMe(
+                                  //         calendarTapDetails.appointments![0]);
                                   List<String> userIdLoaded = [];
                                   for (var users
                                       in detailProvider.userListById!) {
