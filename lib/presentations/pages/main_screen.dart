@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:portal/commons/theme.dart';
 import 'package:portal/presentations/pages/all_documents_screen.dart';
 import 'package:portal/presentations/pages/calendar_screen.dart';
 import 'package:portal/presentations/pages/employee_screen.dart';
 import 'package:portal/presentations/pages/home_screen.dart';
+import 'package:portal/presentations/widgets/other_widgets/custom_loader.dart';
 import 'package:provider/provider.dart';
 import 'package:portal/commons/enum.dart';
 import 'package:portal/presentations/state_management/auth_provider.dart';
@@ -249,7 +249,6 @@ class _MainScreenState extends State<MainScreen> {
                                 GestureDetector(
                                   onTap: () async {
                                     await showLogoutDialog();
-                                  
                                   },
                                   child: Column(
                                     children: [
@@ -280,10 +279,10 @@ class _MainScreenState extends State<MainScreen> {
         );
       }
       return Center(
-          child: LoadingAnimationWidget.beat(
-        color: const Color.fromARGB(255, 255, 177, 59),
-        size: 60,
-      ));
+        child: CustomRiveLoader(
+          isWhite: true,
+        ),
+      );
     });
   }
 
@@ -324,7 +323,6 @@ class _MainScreenState extends State<MainScreen> {
                   padding: EdgeInsets.only(bottom: 20.0),
                   child: SizedBox(width: 400, child: Divider()),
                 ),
-               
                 const Padding(
                   padding: EdgeInsets.only(top: 20, bottom: 50.0),
                   child: SizedBox(
@@ -341,18 +339,19 @@ class _MainScreenState extends State<MainScreen> {
                       padding: const EdgeInsets.all(15.0),
                       child: MaterialButton(
                         onPressed: () async {
-                            await context
-                                              .read<AuthProvider>()
-                                              .signOut();
+                          await context.read<AuthProvider>().signOut();
                         },
                         child: Container(
-                          width: 80,
-                          height: 45,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(8),
-                            color: Colors.red
-                          ),
-                          child: Center(child: Text('Logout', style: DWTextTypography.of(context).text16,))),
+                            width: 80,
+                            height: 45,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(8),
+                                color: Colors.red),
+                            child: Center(
+                                child: Text(
+                              'Logout',
+                              style: DWTextTypography.of(context).text16,
+                            ))),
                       ),
                     ),
                   ],
@@ -364,17 +363,15 @@ class _MainScreenState extends State<MainScreen> {
       },
     );
   }
+}
 
-  }
-
-  PopupMenuItem<Options> _buildPopupMenuItem(String title, Options position) {
-    return PopupMenuItem<Options>(
-      value: position,
-      child: Column(
-        children: [
-          Text(title),
-        ],
-      ),
-    );
-  }
-
+PopupMenuItem<Options> _buildPopupMenuItem(String title, Options position) {
+  return PopupMenuItem<Options>(
+    value: position,
+    child: Column(
+      children: [
+        Text(title),
+      ],
+    ),
+  );
+}

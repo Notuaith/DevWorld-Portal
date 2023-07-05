@@ -1,11 +1,11 @@
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 
-import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:portal/commons/theme.dart';
 import 'package:portal/presentations/state_management/auth_provider.dart';
 import 'package:portal/presentations/state_management/user_provider.dart';
 import 'package:portal/presentations/widgets/employee_widget/employee_item.dart';
+import 'package:portal/presentations/widgets/other_widgets/custom_loader.dart';
 import 'package:provider/provider.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
@@ -42,14 +42,14 @@ class _EmployeeScreenState extends State<EmployeeScreen> {
                     : MediaQuery.of(context).size.width - 60,
                 height: MediaQuery.of(context).size.height,
                 child: Center(
-                    child: LoadingAnimationWidget.beat(
-                  color: const Color.fromARGB(255, 255, 177, 59),
-                  size: 60,
-                )),
+                  child: CustomRiveLoader(
+                    isWhite: true,
+                  ),
+                ),
               )
             : Padding(
-              padding: const EdgeInsets.only(top:0.0),
-              child: Container(
+                padding: const EdgeInsets.only(top: 0.0),
+                child: Container(
                   color: Colors.black,
                   width: size.deviceScreenType == DeviceScreenType.mobile
                       ? MediaQuery.of(context).size.width
@@ -60,11 +60,12 @@ class _EmployeeScreenState extends State<EmployeeScreen> {
                       Visibility(
                         visible: user.isAdmin,
                         child: Container(
-                          color:Colors.black,
+                          color: Colors.black,
                           height: 70,
                           child: Row(
                             children: [
-                              size.deviceScreenType == DeviceScreenType.mobile ||
+                              size.deviceScreenType ==
+                                          DeviceScreenType.mobile ||
                                       size.deviceScreenType ==
                                           DeviceScreenType.tablet
                                   ? const SizedBox()
@@ -77,7 +78,10 @@ class _EmployeeScreenState extends State<EmployeeScreen> {
                                     ),
                               Expanded(child: Container()),
                               Container(
-                                width: size.deviceScreenType == DeviceScreenType.mobile ? 165 : 240,
+                                width: size.deviceScreenType ==
+                                        DeviceScreenType.mobile
+                                    ? 165
+                                    : 240,
                                 height: 40,
                                 decoration: BoxDecoration(
                                     border: Border.all(
@@ -139,7 +143,9 @@ class _EmployeeScreenState extends State<EmployeeScreen> {
                                     setState(() {
                                       selectedRoleValue = '';
                                     });
-                                    context.read<UserListProvider>().filterList();
+                                    context
+                                        .read<UserListProvider>()
+                                        .filterList();
                                   },
                                   child: Container(
                                     width: 100,
@@ -172,58 +178,67 @@ class _EmployeeScreenState extends State<EmployeeScreen> {
                       Padding(
                         padding: const EdgeInsets.only(top: 15.0),
                         child: SizedBox(
-                          child: size.deviceScreenType == DeviceScreenType.mobile
+                          child: size.deviceScreenType ==
+                                  DeviceScreenType.mobile
                               ? Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                       SizedBox(
-                                          width:
-                                              MediaQuery.of(context).size.width *
-                                                  0.24,
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.24,
                                           child: Center(
                                               child: Text(
                                             'Nome',
                                             style: DWTextTypography.of(context)
                                                 .text16bold
                                                 .copyWith(
-                                                    fontWeight: FontWeight.w600),
+                                                    fontWeight:
+                                                        FontWeight.w600),
                                           ))),
                                       SizedBox(
-                                          width:
-                                              MediaQuery.of(context).size.width *
-                                                  0.24,
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.24,
                                           child: Center(
                                               child: Text(
                                             'Cognome',
                                             style: DWTextTypography.of(context)
                                                 .text16bold
                                                 .copyWith(
-                                                    fontWeight: FontWeight.w600),
+                                                    fontWeight:
+                                                        FontWeight.w600),
                                           ))),
                                       SizedBox(
-                                          width:
-                                              MediaQuery.of(context).size.width *
-                                                  0.24,
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.24,
                                           child: Center(
                                               child: Text(
                                             'Mansione',
                                             style: DWTextTypography.of(context)
                                                 .text16bold
                                                 .copyWith(
-                                                    fontWeight: FontWeight.w600),
+                                                    fontWeight:
+                                                        FontWeight.w600),
                                           ))),
                                       SizedBox(
-                                          width:
-                                              MediaQuery.of(context).size.width *
-                                                  0.24,
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.24,
                                           child: Center(
                                               child: Text(
                                             'Azioni',
                                             style: DWTextTypography.of(context)
                                                 .text16bold
                                                 .copyWith(
-                                                    fontWeight: FontWeight.w600),
+                                                    fontWeight:
+                                                        FontWeight.w600),
                                           ))),
                                     ])
                               : Row(
@@ -231,8 +246,9 @@ class _EmployeeScreenState extends State<EmployeeScreen> {
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     SizedBox(
-                                        width: MediaQuery.of(context).size.width *
-                                            0.13,
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.13,
                                         child: Center(
                                             child: Text(
                                           'Nome',
@@ -242,8 +258,9 @@ class _EmployeeScreenState extends State<EmployeeScreen> {
                                                   fontWeight: FontWeight.w600),
                                         ))),
                                     SizedBox(
-                                        width: MediaQuery.of(context).size.width *
-                                            0.13,
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.13,
                                         child: Center(
                                             child: Text(
                                           'Cognome',
@@ -253,8 +270,9 @@ class _EmployeeScreenState extends State<EmployeeScreen> {
                                                   fontWeight: FontWeight.w600),
                                         ))),
                                     SizedBox(
-                                        width: MediaQuery.of(context).size.width *
-                                            0.13,
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.13,
                                         child: Center(
                                             child: Text(
                                           'Mansione',
@@ -264,8 +282,9 @@ class _EmployeeScreenState extends State<EmployeeScreen> {
                                                   fontWeight: FontWeight.w600),
                                         ))),
                                     SizedBox(
-                                        width: MediaQuery.of(context).size.width *
-                                            0.13,
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.13,
                                         child: Center(
                                             child: Text(
                                           'Aggiungi DOC',
@@ -275,8 +294,9 @@ class _EmployeeScreenState extends State<EmployeeScreen> {
                                                   fontWeight: FontWeight.w600),
                                         ))),
                                     SizedBox(
-                                        width: MediaQuery.of(context).size.width *
-                                            0.13,
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.13,
                                         child: Center(
                                             child: Text(
                                           'Documenti',
@@ -286,8 +306,9 @@ class _EmployeeScreenState extends State<EmployeeScreen> {
                                                   fontWeight: FontWeight.w600),
                                         ))),
                                     SizedBox(
-                                        width: MediaQuery.of(context).size.width *
-                                            0.13,
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.13,
                                         child: Center(
                                             child: Text(
                                           'Modifica',
@@ -320,7 +341,7 @@ class _EmployeeScreenState extends State<EmployeeScreen> {
                     ],
                   ),
                 ),
-            );
+              );
       });
     });
   }

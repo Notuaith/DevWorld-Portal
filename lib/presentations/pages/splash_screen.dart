@@ -47,8 +47,7 @@ class _SplashScreenState extends State<SplashScreen> {
                                     width: 400,
                                     height: MediaQuery.of(context).size.height,
                                     decoration: const BoxDecoration(
-                                        color:
-                                            Color.fromARGB(211, 158, 158, 158)),
+                                        color: Color.fromARGB(210, 71, 71, 71)),
                                     child: Column(
                                       children: [
                                         Padding(
@@ -113,16 +112,9 @@ class _SplashScreenState extends State<SplashScreen> {
                                                         },
                                                       ))
                                                   : Padding(
-                                                      padding:
-                                                          size.deviceScreenType ==
-                                                                  DeviceScreenType
-                                                                      .mobile
-                                                              ? const EdgeInsets
-                                                                      .symmetric(
-                                                                  horizontal:
-                                                                      20)
-                                                              : const EdgeInsets
-                                                                  .all(20),
+                                                      padding: const EdgeInsets
+                                                              .symmetric(
+                                                          horizontal: 20),
                                                       child: MainSignUpDesktop(
                                                         providerResult:
                                                             providerResult,

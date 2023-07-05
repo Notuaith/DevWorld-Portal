@@ -3,7 +3,6 @@ import 'package:dropdown_search/dropdown_search.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:portal/commons/routing/router.gr.dart';
 import 'package:portal/commons/theme.dart';
 import 'package:portal/commons/utils.dart';
@@ -12,6 +11,7 @@ import 'package:portal/data/models/user_model.dart';
 import 'package:portal/presentations/state_management/auth_provider.dart';
 import 'package:portal/presentations/state_management/document_provider.dart';
 import 'package:portal/presentations/widgets/all_documents_widgets/docuement_list_Item.dart';
+import 'package:portal/presentations/widgets/other_widgets/custom_loader.dart';
 import 'package:provider/provider.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
@@ -73,15 +73,14 @@ class _AllDocumentsScreenState extends State<AllDocumentsScreen> {
             Consumer<DocumentListProvider>(builder: (context, document, child) {
           return document.documentListById == null
               ? Container(
-                color: Colors.black,
+                  color: Colors.black,
                   width: size.deviceScreenType == DeviceScreenType.mobile
                       ? MediaQuery.of(context).size.width
                       : MediaQuery.of(context).size.width - 60,
                   height: MediaQuery.of(context).size.height - 70,
                   child: Center(
-                      child: LoadingAnimationWidget.beat(
-                    color: const Color.fromARGB(255, 255, 177, 59),
-                    size: 60,
+                      child: CustomRiveLoader(
+                    isWhite: true,
                   )),
                 )
               : SizedBox(
@@ -379,11 +378,10 @@ class _AllDocumentsScreenState extends State<AllDocumentsScreen> {
                                         DeviceScreenType.mobile
                                     ? MediaQuery.of(context).size.width
                                     : MediaQuery.of(context).size.width,
-                                height:
-                                size.deviceScreenType !=
+                                height: size.deviceScreenType !=
                                         DeviceScreenType.mobile
-                                    ?MediaQuery.of(context).size.height:
-                                    MediaQuery.of(context).size.height - 106,
+                                    ? MediaQuery.of(context).size.height
+                                    : MediaQuery.of(context).size.height - 106,
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
@@ -400,21 +398,31 @@ class _AllDocumentsScreenState extends State<AllDocumentsScreen> {
                                         },
                                         child: Container(
                                           height: 45,
-                                          width: MediaQuery.of(context).size.width * 0.7,
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
+                                              0.7,
                                           decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.circular(8),
-                                            color: Colors.blue),
+                                              borderRadius:
+                                                  BorderRadius.circular(8),
+                                              color: Colors.blue),
                                           child: Center(
                                             child: Text(
                                               'Torna alla pagina precedente',
                                               style:
-                                                  DWTextTypography.of(context).text18bold.copyWith(fontWeight: FontWeight.w600),
+                                                  DWTextTypography.of(context)
+                                                      .text18bold
+                                                      .copyWith(
+                                                          fontWeight:
+                                                              FontWeight.w600),
                                             ),
                                           ),
                                         ),
                                       ),
                                     ),
-                                    SizedBox(height: 150,)
+                                    SizedBox(
+                                      height: 150,
+                                    )
                                   ],
                                 ),
                               ),

@@ -52,11 +52,11 @@ dependencies:
   easy_localization: ^3.0.1
   firebase_storage: ^11.2.2
   cloud_functions: ^4.3.2
-  loading_animation_widget: ^1.2.0+4
   image_picker: ^0.8.7+5
   crop_image: ^1.0.8
   url_launcher: ^6.1.11
   dropdown_search: ^5.0.6
+  rive: ^0.7.16
 
 dev_dependencies:
   flutter_test:

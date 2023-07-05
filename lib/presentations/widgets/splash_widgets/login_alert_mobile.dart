@@ -79,9 +79,9 @@ class _LogInAlertMobileState extends State<LogInAlertMobile> {
                   style: DWTextTypography.of(context).text18,
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(top: 20.0, bottom: 0),
+                  padding: const EdgeInsets.only(top: 20.0),
                   child: Text(
-                    'Email',
+                    tr("enter_mail"),
                     style: DWTextTypography.of(context)
                         .text18
                         .copyWith(color: Colors.grey),
@@ -93,7 +93,7 @@ class _LogInAlertMobileState extends State<LogInAlertMobile> {
                     controller: emailController,
                     validator: (value) {
                       if (value!.isEmpty) {
-                        return 'Il campo email è vuoto';
+                        return 'Il campo email Ã¨ vuoto';
                       } else if (!RegExp(
                               r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^`{|}~]+@[a-zA-Z0-9]+.[a-zA-Z]+")
                           .hasMatch(emailController.text)) {
@@ -109,7 +109,7 @@ class _LogInAlertMobileState extends State<LogInAlertMobile> {
                       focusedBorder: const UnderlineInputBorder(
                         borderSide: BorderSide(color: Colors.white),
                       ),
-                      hintText: 'Inserisci Mail',
+                      hintText: 'Inserisci mail',
                       hintStyle: DWTextTypography.of(context).text18,
                     ),
                   ),
@@ -117,7 +117,7 @@ class _LogInAlertMobileState extends State<LogInAlertMobile> {
                 Padding(
                   padding: const EdgeInsets.only(top: 20.0, bottom: 0),
                   child: Text(
-                    'Password',
+                    tr("enter_password"),
                     style: DWTextTypography.of(context)
                         .text18
                         .copyWith(color: Colors.grey),
@@ -136,7 +136,7 @@ class _LogInAlertMobileState extends State<LogInAlertMobile> {
                       focusedBorder: const UnderlineInputBorder(
                         borderSide: BorderSide(color: Colors.white),
                       ),
-                      hintText: 'Inserisci Password',
+                      hintText: 'Inserisci password',
                       hintStyle: DWTextTypography.of(context).text18,
                     ),
                     validator: (value) {
@@ -233,7 +233,7 @@ class _LogInAlertMobileState extends State<LogInAlertMobile> {
                             minHeight: 30,
                             minWidth: 100),
                         child: Center(
-                          child: Text("Iscriviti",
+                          child: Text("Registrati",
                               style: DWTextTypography.of(context).text16bold),
                         ),
                       ),
@@ -245,88 +245,6 @@ class _LogInAlertMobileState extends State<LogInAlertMobile> {
           )
         ],
       ),
-      //todo remove comment sots
-      // child: Column(
-      //   mainAxisSize: MainAxisSize.min,
-      //   mainAxisAlignment: MainAxisAlignment.start,
-      //   crossAxisAlignment: CrossAxisAlignment.start,
-      //   children: [
-
-      //      Text(
-      //       tr("enter_password"),
-      //       style: const TextStyle(
-      //         color: Colors.white,
-      //         fontSize: 18,
-      //       ),
-      //     ),
-      //     Padding(
-      //       padding:
-      //           const EdgeInsets.only(top: 4, left: 4, right: 4, bottom: 20),
-      //       child: Container(
-      //         decoration: const BoxDecoration(
-      //             color: Colors.white,
-      //             borderRadius: BorderRadius.only(
-      //                 topLeft: Radius.circular(8),
-      //                 bottomLeft: Radius.circular(8),
-      //                 bottomRight: Radius.circular(8),
-      //                 topRight: Radius.circular(8))),
-      //         child: Row(
-      //           children: [
-
-      //     Padding(
-      //       padding: const EdgeInsets.only(top: 8, bottom: 12),
-      //       child: Align(
-      //         alignment: Alignment.topRight,
-      //         child: MouseRegion(
-      //         cursor: SystemMouseCursors.click,
-      //           child: GestureDetector(
-      //             onTap: () {
-      //               showResetPasswordDialog();
-      //             },
-      //             child: Text(
-      //               tr("reset_password"),
-      //               style: const TextStyle(
-      //                 decoration: TextDecoration.underline,
-      //                 color: Colors.white,
-      //                 fontSize: 15,
-      //                 fontWeight: FontWeight.w500),
-      //             ),
-      //           ),
-      //         ),
-      //       ),
-      //     ),
-      //     Padding(
-      //       padding: const EdgeInsets.only(top: 10.0, bottom: 8),
-      //       child: MouseRegion(
-      //         cursor: SystemMouseCursors.click,
-      //         child: Center(
-      //             child: GestureDetector(
-      //           onTap: () => widget.switchBody(null),
-      //           child:  RichText(
-      //             textAlign: TextAlign.center,
-      //             text: TextSpan(
-      //               text: tr("no_account"),
-      //               style: const TextStyle(
-      //                 color: Colors.white,
-      //                 fontSize: 15,
-      //                 fontWeight: FontWeight.w500),
-      //               children: [
-      //                 TextSpan(
-      //                   text: tr("signin_hint"),
-      //                   style: const TextStyle(
-      //                   color: Colors.white,
-      //                   fontSize: 17,
-      //                   fontWeight: FontWeight.bold),
-      //                 )
-      //               ]
-      //             )
-      //           ),
-      //         )),
-      //       ),
-      //     ),
-
-      //  ],
-      // ),
     );
   }
 

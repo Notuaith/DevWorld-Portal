@@ -2,7 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:loading_animation_widget/loading_animation_widget.dart';
+//import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:portal/commons/utils.dart';
 import 'package:portal/data/data_sorce/calendar_data_source.dart';
 import 'package:portal/data/models/user_model.dart';
@@ -14,6 +14,7 @@ import 'package:portal/presentations/state_management/user_provider.dart';
 import 'package:portal/presentations/widgets/calendar_widget/date_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:responsive_builder/responsive_builder.dart';
+import 'package:rive/rive.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 
 class CalendarScreen extends StatefulWidget {
@@ -147,10 +148,8 @@ class _CalendarScreenState extends State<CalendarScreen> {
                 width: MediaQuery.of(context).size.width,
                 height: MediaQuery.of(context).size.height,
                 child: Center(
-                    child: LoadingAnimationWidget.beat(
-                  color: const Color.fromARGB(255, 255, 177, 59),
-                  size: 60,
-                )),
+                  child: RiveAnimation.asset('lib/resources/images/loader.riv'),
+                ),
               )
             : SizedBox(
                 width: size.deviceScreenType == DeviceScreenType.mobile

@@ -1,12 +1,13 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:loading_animation_widget/loading_animation_widget.dart';
+//import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:portal/commons/theme.dart';
 import 'package:portal/data/models/memo_model.dart';
 import 'package:portal/data/models/user_model.dart';
 import 'package:portal/presentations/state_management/auth_provider.dart';
 import 'package:portal/presentations/state_management/memo_provider.dart';
 import 'package:portal/presentations/widgets/home_widget/showcase_widget.dart';
+import 'package:portal/presentations/widgets/other_widgets/custom_loader.dart';
 import 'package:portal/presentations/widgets/other_widgets/memo.dart';
 import 'package:portal/presentations/widgets/other_widgets/memo_painter.dart';
 import 'package:provider/provider.dart';
@@ -51,11 +52,14 @@ class _HomeScreenState extends State<HomeScreen> {
                       ? MediaQuery.of(context).size.width
                       : MediaQuery.of(context).size.width - 60,
                   height: MediaQuery.of(context).size.height,
-                  child: Center(
-                      child: LoadingAnimationWidget.beat(
-                    color: const Color.fromARGB(255, 255, 177, 59),
-                    size: 60,
-                  )),
+                  child: CustomRiveLoader(
+                    isWhite: true,
+                  ),
+                  // child: Center(
+                  //     child: LoadingAnimationWidget.beat(
+                  //   color: const Color.fromARGB(255, 255, 177, 59),
+                  //   size: 60,
+                  // )),
                 )
               : size.deviceScreenType == DeviceScreenType.mobile
                   ? SizedBox(
@@ -266,8 +270,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 Padding(
                   padding: const EdgeInsets.only(top: 50.0),
                   child: Center(
-                    child: Text(
-                        'Sei sicuro di voler cancellare questo Memo?'),
+                    child: Text('Sei sicuro di voler cancellare questo Memo?'),
                   ),
                 ),
                 Padding(
@@ -277,8 +280,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         Container(
-                          width: 150,
-                          height: 45,
+                            width: 150,
+                            height: 45,
                             decoration: BoxDecoration(
                                 color: Colors.red,
                                 borderRadius: BorderRadius.circular(8)),

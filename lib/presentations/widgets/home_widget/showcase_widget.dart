@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:loading_animation_widget/loading_animation_widget.dart';
+//import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:portal/commons/utils.dart';
 import 'package:portal/data/data_sorce/calendar_data_source.dart';
 import 'package:portal/data/models/appointement_model.dart';
 import 'package:portal/presentations/state_management/appointment_detail_provider.dart';
 import 'package:portal/presentations/state_management/appointment_list_provider.dart';
 import 'package:portal/presentations/state_management/user_provider.dart';
+import 'package:portal/presentations/widgets/other_widgets/custom_loader.dart';
 import 'package:provider/provider.dart';
+import 'package:rive/rive.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -46,9 +48,10 @@ class _ShowcaseState extends State<Showcase> {
             child: pro.appointmentListByMe == null
                 ? SizedBox(
                     child: Center(
-                        child: LoadingAnimationWidget.beat(
-                      color: const Color.fromARGB(255, 255, 177, 59),
-                      size: 60,
+                        child: CustomRiveLoader(
+                      width: 120,
+                      height: 120,
+                      isWhite: false,
                     )),
                   )
                 : SfCalendar(
