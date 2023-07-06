@@ -173,12 +173,14 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 left = details.delta.dx;
                                               },
                                               onDragEnd: (details) async {
+                                                print('la width è ${MediaQuery.of(context).size.width - 60}',);
                                                 setState(() {
-                                                  top = details.offset.dy;
-                                                  left = details.offset.dx;
+                                                  top = details.offset.dy > 500 ? 100 :details.offset.dy ;
+                                                  left = details.offset.dx > MediaQuery.of(context).size.width - 80 ? 100:details.offset.dx ;
                                                   i.top = top;
                                                   i.left = left;
-                                                  print(top);
+                                                  print('top è${top}');
+                                                  print('left è${left}');
                                                 });
                                                 await context
                                                     .read<MemoListProvider>()
@@ -192,7 +194,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                               feedback: Memo(
                                                 memo: i,
                                               ),
-                                              child: Memo(memo: i)),
+                                              child: GestureDetector(
+                                                  onLongPress: () async {
+                                                    await deleteMemoDialog(i);
+                                                  },
+                                                  child: Memo(memo: i))),
                                         )
                                     ],
                                   ),
