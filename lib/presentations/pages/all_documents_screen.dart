@@ -77,7 +77,7 @@ class _AllDocumentsScreenState extends State<AllDocumentsScreen> {
                   width: size.deviceScreenType == DeviceScreenType.mobile
                       ? MediaQuery.of(context).size.width
                       : MediaQuery.of(context).size.width - 60,
-                  height: MediaQuery.of(context).size.height - 70,
+                  height: MediaQuery.of(context).size.height,
                   child: Center(
                       child: CustomRiveLoader(
                     isWhite: true,
@@ -390,31 +390,34 @@ class _AllDocumentsScreenState extends State<AllDocumentsScreen> {
                                       style:
                                           DWTextTypography.of(context).text18,
                                     ),
-                                    Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: GestureDetector(
-                                        onTap: () {
-                                          AutoRouter.of(context).pop();
-                                        },
-                                        child: Container(
-                                          height: 45,
-                                          width: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                              0.7,
-                                          decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(8),
-                                              color: Colors.blue),
-                                          child: Center(
-                                            child: Text(
-                                              'Torna alla pagina precedente',
-                                              style:
-                                                  DWTextTypography.of(context)
-                                                      .text18bold
-                                                      .copyWith(
-                                                          fontWeight:
-                                                              FontWeight.w600),
+                                    Visibility(
+                                      visible: user.isAdmin,
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: GestureDetector(
+                                          onTap: () {
+                                            AutoRouter.of(context).pop();
+                                          },
+                                          child: Container(
+                                            height: 45,
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width *
+                                                0.7,
+                                            decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(8),
+                                                color: Colors.blue),
+                                            child: Center(
+                                              child: Text(
+                                                'Torna alla pagina precedente',
+                                                style:
+                                                    DWTextTypography.of(context)
+                                                        .text18bold
+                                                        .copyWith(
+                                                            fontWeight:
+                                                                FontWeight.w600),
+                                              ),
                                             ),
                                           ),
                                         ),
