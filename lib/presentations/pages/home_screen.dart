@@ -6,7 +6,9 @@ import 'package:portal/data/models/memo_model.dart';
 import 'package:portal/data/models/user_model.dart';
 import 'package:portal/presentations/state_management/auth_provider.dart';
 import 'package:portal/presentations/state_management/memo_provider.dart';
+import 'package:portal/presentations/widgets/home_widget/next_appointment_widget.dart';
 import 'package:portal/presentations/widgets/home_widget/showcase_widget.dart';
+import 'package:portal/presentations/widgets/home_widget/title_widget.dart';
 import 'package:portal/presentations/widgets/other_widgets/custom_loader.dart';
 import 'package:portal/presentations/widgets/other_widgets/memo.dart';
 import 'package:portal/presentations/widgets/other_widgets/memo_painter.dart';
@@ -52,14 +54,9 @@ class _HomeScreenState extends State<HomeScreen> {
                       ? MediaQuery.of(context).size.width
                       : MediaQuery.of(context).size.width - 60,
                   height: MediaQuery.of(context).size.height,
-                  child: CustomRiveLoader(
-                    isWhite: true,
+                  child: CustomRiveLoader2(
+                    
                   ),
-                  // child: Center(
-                  //     child: LoadingAnimationWidget.beat(
-                  //   color: const Color.fromARGB(255, 255, 177, 59),
-                  //   size: 60,
-                  // )),
                 )
               : size.deviceScreenType == DeviceScreenType.mobile
                   ? SizedBox(
@@ -67,7 +64,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       height: MediaQuery.of(context).size.height,
                       child: Scaffold(
                         floatingActionButton: Padding(
-                          padding: const EdgeInsets.only(bottom: 170.0),
+                          padding: const EdgeInsets.only(bottom: 230.0),
                           child: FloatingActionButton(
                               child: Icon(Icons.add),
                               onPressed: () async {
@@ -83,25 +80,13 @@ class _HomeScreenState extends State<HomeScreen> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(
-                                      top: 30.0, bottom: 10),
-                                  child: Text(
-                                    'Appuntamenti',
-                                    style: DWTextTypography.of(context)
-                                        .text18bold
-                                        .copyWith(fontWeight: FontWeight.w600),
-                                  ),
-                                ),
+                                TitleWidget(title: 'Prossimo appuntamento'),
+                                NextAppointmentwidget(userId: user.uid),
+                                TitleWidget(title: 'Appuntamenti'),
                                 Showcase(
                                   width: MediaQuery.of(context).size.width,
                                 ),
-                                Text(
-                                  'Memo',
-                                  style: DWTextTypography.of(context)
-                                      .text18bold
-                                      .copyWith(fontWeight: FontWeight.w600),
-                                ),
+                                TitleWidget(title: 'Memo'),
                                 SizedBox(
                                   height: 220,
                                   width: MediaQuery.of(context).size.width,
@@ -173,10 +158,20 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 left = details.delta.dx;
                                               },
                                               onDragEnd: (details) async {
-                                                print('la width è ${MediaQuery.of(context).size.width - 60}',);
+                                                print(
+                                                  'la width è ${MediaQuery.of(context).size.width - 60}',
+                                                );
                                                 setState(() {
-                                                  top = details.offset.dy > 500 ? 100 :details.offset.dy ;
-                                                  left = details.offset.dx > MediaQuery.of(context).size.width - 80 ? 100:details.offset.dx ;
+                                                  top = details.offset.dy > 500
+                                                      ? 100
+                                                      : details.offset.dy;
+                                                  left = details.offset.dx >
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .width -
+                                                              80
+                                                      ? 100
+                                                      : details.offset.dx;
                                                   i.top = top;
                                                   i.left = left;
                                                   print('top è${top}');

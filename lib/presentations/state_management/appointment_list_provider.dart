@@ -17,7 +17,9 @@ class AppointmentListProvider with ChangeNotifier {
   bool loading = false;
 
   List<AppointmentModel>? _appointmentListByMe;
+  List<AppointmentModel>? _nextAppointmentList;
   List<AppointmentModel>? get appointmentListByMe => _appointmentListByMe;
+  List<AppointmentModel>? get nextAppointmentList => _nextAppointmentList;
 
   getAppointmentsById(String? id) async {
     _startOperation();
@@ -33,6 +35,30 @@ class AppointmentListProvider with ChangeNotifier {
 
       _endOperation();
     });
+  }
+
+  getNextAppointmentAvailable(String? id) async {
+    _startOperation();
+    await cleanNextAppointmentList();
+    List<AppointmentModel> listCheckAppointment = [];
+
+    var appointmentByUserId =
+        await appointmentService!.getAllAppointmentById(userId: id!);
+    //appointmentByUserId.where((e) => e.startTime.isAfter(DateTime.now()));
+    for (var appointment in appointmentByUserId) {
+      if (appointment.startTime.isAfter(DateTime.now())) {
+        listCheckAppointment.add(appointment);
+      }
+    }
+    listCheckAppointment.sort((a, b) => a.startTime.compareTo(b.startTime),);
+    _nextAppointmentList = listCheckAppointment;
+    _endOperation();
+  } 
+
+  cleanNextAppointmentList() async {
+    _startOperation();
+    _nextAppointmentList = [];
+    _endOperation();
   }
 
   Future<bool> checkAvailabilitySlot(

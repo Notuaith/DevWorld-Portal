@@ -34,7 +34,7 @@ class AppointmentDetailProvider with ChangeNotifier {
     _endOperation();
   }
 
-  cleanAppointmentList() async {
+  cleanUserList() async {
     _startOperation();
     _userListById = [];
     _endOperation();

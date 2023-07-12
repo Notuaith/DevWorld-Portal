@@ -107,6 +107,13 @@ Future<PlatformFile?> fileFromStorage(List<String> extension) async {
     final String formatted = formatter.format(now);
     return formatted;
   }
+  String formattedDateWithoutYear(DateTime inputDate) {
+    final DateTime now = inputDate;
+    //final DateFormat formatter = DateFormat('dd-MM-yyyy', 'it_IT');
+    final DateFormat formatter = DateFormat('dd-MM', 'it_IT');
+    final String formatted = formatter.format(now);
+    return formatted;
+  }
   
   String formattedTime(DateTime inputDate) {
     final DateTime now = inputDate;

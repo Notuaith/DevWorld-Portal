@@ -1,11 +1,7 @@
 enum Options {
   home,
-  notification,
-  profile,
-  subscriptions,
-  settings,
-  assistance,
-  research,
+  calendario,
+  documenti,
   logout,
 }
 

@@ -24,3 +24,27 @@ class CustomRiveLoader extends StatelessWidget {
     );
   }
 }
+
+class CustomRiveLoader2 extends StatelessWidget {
+  final bool isWhite;
+  final double? width;
+  final double? height;
+  const CustomRiveLoader2(
+      {Key? key, required this.isWhite, this.width, this.height})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: SizedBox(
+        width: width ?? 150,
+        height: height ?? 150,
+        child: isWhite
+            ? RiveAnimation.asset('lib/resources/images/devworld.riv')
+            : RiveAnimation.asset(
+                'lib/resources/images/devworld.riv',
+              ),
+      ),
+    );
+  }
+}

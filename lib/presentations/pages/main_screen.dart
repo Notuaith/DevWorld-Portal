@@ -43,18 +43,80 @@ class _MainScreenState extends State<MainScreen> {
                   //backgroundColor: Colors.black,
                   appBar: size.deviceScreenType == DeviceScreenType.mobile
                       ? PreferredSize(
-                          preferredSize: const Size.fromHeight(50),
+                          //todo for web set app bar a 50
+                          preferredSize: const Size.fromHeight(100),
                           child: Container(
-                            color: Colors.black,
+                            //todo for web set app bar a 50
+                            decoration:
+                                BoxDecoration(color: Colors.black, boxShadow: [
+                              BoxShadow(
+                                  spreadRadius: 2,
+                                  blurRadius: 7,
+                                  color: Colors.white.withOpacity(0.3),
+                                  offset: Offset(0, 1))
+                            ]),
+                            height: 100,
                             child: Padding(
                               padding: const EdgeInsets.only(
-                                  left: 5, top: 50.0, bottom: 10),
-                              child: Row(children: [
-                                Image.asset(
-                                  "lib/resources/images/LogoDefinitivoBianco.png",
-                                  width: 200,
-                                ),
-                              ]),
+                                  left: 10, top: 50.0, bottom: 10, right: 10),
+                              child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Image.asset(
+                                      "lib/resources/images/LogoDefinitivoBianco.png",
+                                      width: 170,
+                                    ),
+                                    PopupMenuButton<Options>(
+                                      iconSize: 25,
+                                      padding: const EdgeInsets.all(0),
+                                      offset: const Offset(0, 50),
+                                      icon: const Icon(
+                                        Icons.menu,
+                                        color: Colors.white,
+                                      ),
+                                      onSelected: (value) {
+                                        switch (value) {
+                                          case Options.home:
+                                            setState(() {
+                                              selectedIndex = 0;
+                                            });
+                                            break;
+                                          case Options.calendario:
+                                            setState(() {
+                                              selectedIndex = 1;
+                                            });
+                                            break;
+                                          case Options.documenti:
+                                            setState(() {
+                                              if (user.isAdmin) {
+                                                selectedIndex = 2;
+                                              } else {
+                                                selectedIndex = 3;
+                                              }
+                                            });
+
+                                            break;
+                                          case Options.logout:
+                                            setState(() {
+                                              showLogoutDialog();
+                                            });
+                                            break;
+                                          default:
+                                        }
+                                      },
+                                      itemBuilder: (ctx) => [
+                                        _buildPopupMenuItem(
+                                            'Home', Options.home),
+                                        _buildPopupMenuItem(
+                                            "calendario", Options.calendario),
+                                        _buildPopupMenuItem(
+                                            "documenti", Options.documenti),
+                                        _buildPopupMenuItem(
+                                            "logout", Options.logout),
+                                      ],
+                                    )
+                                  ]),
                             ),
                           ),
                         )
@@ -134,6 +196,7 @@ class _MainScreenState extends State<MainScreen> {
                       )
                     ]),
                   ),
+                  //todo commenta ogni volta cge deploy sul
                   bottomNavigationBar: size.deviceScreenType ==
                           DeviceScreenType.mobile
                       ? Container(
@@ -370,7 +433,7 @@ PopupMenuItem<Options> _buildPopupMenuItem(String title, Options position) {
     value: position,
     child: Column(
       children: [
-        Text(title),
+        GestureDetector(child: Text(title)),
       ],
     ),
   );

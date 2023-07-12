@@ -89,7 +89,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                 WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
                   await context
                       .read<AppointmentDetailProvider>()
-                      .cleanAppointmentList();
+                      .cleanUserList();
                   await context
                       .read<AppointmentDetailProvider>()
                       .getAppointmentUserListById(userIds: selectedIdsList);
@@ -102,7 +102,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                 WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
                   await context
                       .read<AppointmentDetailProvider>()
-                      .cleanAppointmentList();
+                      .cleanUserList();
                   await context
                       .read<AppointmentDetailProvider>()
                       .getAppointmentUserListById(userIds: selectedIdsList);
@@ -212,7 +212,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                                 if (calendarTapDetails.appointments != null) {
                                   await context
                                       .read<AppointmentDetailProvider>()
-                                      .cleanAppointmentList();
+                                      .cleanUserList();
                                   await context
                                       .read<AppointmentDetailProvider>()
                                       .getAppointmentUserListById(
@@ -223,7 +223,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                                 } else {
                                   await context
                                       .read<AppointmentDetailProvider>()
-                                      .cleanAppointmentList();
+                                      .cleanUserList();
                                   showCreateDialogMobile(
                                       calendarTapDetails, users.userList!);
                                 }
@@ -237,7 +237,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                                 if (calendarTapDetails.appointments != null) {
                                   await context
                                       .read<AppointmentDetailProvider>()
-                                      .cleanAppointmentList();
+                                      .cleanUserList();
                                   await context
                                       .read<AppointmentDetailProvider>()
                                       .getAppointmentUserListById(
@@ -248,7 +248,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                                 } else {
                                   await context
                                       .read<AppointmentDetailProvider>()
-                                      .cleanAppointmentList();
+                                      .cleanUserList();
                                   showCreateDialog(
                                       calendarTapDetails, users.userList!);
                                 }

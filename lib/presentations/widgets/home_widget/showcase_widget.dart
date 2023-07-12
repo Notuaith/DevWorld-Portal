@@ -8,7 +8,6 @@ import 'package:portal/presentations/state_management/appointment_list_provider.
 import 'package:portal/presentations/state_management/user_provider.dart';
 import 'package:portal/presentations/widgets/other_widgets/custom_loader.dart';
 import 'package:provider/provider.dart';
-import 'package:rive/rive.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -75,7 +74,7 @@ class _ShowcaseState extends State<Showcase> {
 
   Future<void> showDetail(
       CalendarLongPressDetails calendarLongPressDetails) async {
-    await context.read<AppointmentDetailProvider>().cleanAppointmentList();
+    await context.read<AppointmentDetailProvider>().cleanUserList();
     // ignore: use_build_context_synchronously
     await context.read<AppointmentDetailProvider>().getAppointmentUserListById(
         userIds: calendarLongPressDetails.appointments!.first.userId);
