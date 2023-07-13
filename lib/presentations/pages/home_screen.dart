@@ -7,6 +7,7 @@ import 'package:portal/data/models/user_model.dart';
 import 'package:portal/presentations/state_management/auth_provider.dart';
 import 'package:portal/presentations/state_management/memo_provider.dart';
 import 'package:portal/presentations/widgets/home_widget/next_appointment_widget.dart';
+import 'package:portal/presentations/widgets/home_widget/next_appointment_widget_desktop.dart';
 import 'package:portal/presentations/widgets/home_widget/showcase_widget.dart';
 import 'package:portal/presentations/widgets/home_widget/title_widget.dart';
 import 'package:portal/presentations/widgets/other_widgets/custom_loader.dart';
@@ -54,8 +55,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       ? MediaQuery.of(context).size.width
                       : MediaQuery.of(context).size.width - 60,
                   height: MediaQuery.of(context).size.height,
-                  child: CustomRiveLoader2(
-                    
+                  child: CustomRiveLoader(
+                    isWhite: false,
                   ),
                 )
               : size.deviceScreenType == DeviceScreenType.mobile
@@ -219,25 +220,61 @@ class _HomeScreenState extends State<HomeScreen> {
                               ]),
                               Padding(
                                 padding: EdgeInsets.all(20.0),
-                                child: Row(
-                                  children: [
-                                    Text(
-                                      'Comunicazioni',
-                                      style: DWTextTypography.of(context)
-                                          .text22bold,
-                                    )
-                                  ],
+                                child: Container(
+                                  width: MediaQuery.of(context).size.width,
+                                  child: Wrap(
+                                    spacing: 20,
+                                    crossAxisAlignment: WrapCrossAlignment.start,
+                                    alignment: WrapAlignment.start,
+                                    children: [
+                                      Container(
+                                        height: 400,
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              'Appuntamenti',
+                                              style: DWTextTypography.of(context)
+                                                  .text22bold,
+                                            ),
+                                            Padding(
+                                              padding: const EdgeInsets.only(top:8.0),
+                                              child: Showcase(
+                                                width: size.deviceScreenType == DeviceScreenType.tablet ? MediaQuery.of(context).size.width * 0.7: MediaQuery.of(context)
+                                                        .size
+                                                        .width *
+                                                    0.3,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      Container(
+                                        width: 500,
+                                        height: 400,
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              'Prossimo appuntamento',
+                                              style:
+                                                  DWTextTypography.of(context)
+                                                      .text22bold,
+                                            ),
+                                            Padding(
+                                              padding: const EdgeInsets.only(top:8.0),
+                                              child: NextAppointmentwidgetDesktop(
+                                                  userId: user.uid),
+                                            ),
+                                          ],
+                                        ),
+                                      )
+                                    ],
+                                  ),
                                 ),
                               ),
-                              Row(
-                                children: [
-                                  Showcase(
-                                    width:
-                                        MediaQuery.of(context).size.width * 0.3,
-                                  ),
-                                  //  Showcase(),
-                                ],
-                              )
                             ],
                           ),
                         ),
