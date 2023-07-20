@@ -11,6 +11,7 @@ import 'package:portal/presentations/state_management/appointment_list_provider.
 import 'package:portal/presentations/state_management/auth_provider.dart';
 import 'package:portal/presentations/state_management/new_appointment_provider.dart';
 import 'package:portal/presentations/state_management/user_provider.dart';
+import 'package:portal/presentations/widgets/calendar_widget/color_picker.dart';
 import 'package:portal/presentations/widgets/calendar_widget/date_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:responsive_builder/responsive_builder.dart';
@@ -336,81 +337,95 @@ class _CalendarScreenState extends State<CalendarScreen> {
                             Padding(
                               padding:
                                   const EdgeInsets.symmetric(vertical: 4.0),
-                              child: Row(
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: GestureDetector(
-                                        onTap: () {
-                                          setState(() {
-                                            selectedColor = 0;
-                                          });
-                                        },
-                                        child: const CircleAvatar(
-                                          radius: 15,
-                                          backgroundColor: Colors.red,
-                                        )),
+                              child:Row(
+                                      children: [
+                                        Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: GestureDetector(
+                                              onTap: () {
+                                                setState(() {
+                                                  selectedColor = 0;
+                                                });
+                                              },
+                                              child: ColorPicker(
+                                                isActive: selectedColor == 0,
+                                                color: Colors.red,
+                                              )),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: GestureDetector(
+                                              onTap: () {
+                                                setState(() {
+                                                  selectedColor = 1;
+                                                });
+                                              },
+                                              child: ColorPicker(
+                                                isActive: selectedColor == 1,
+                                                color: Colors.blue,
+                                              )),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: GestureDetector(
+                                              onTap: () {
+                                                setState(
+                                                  () {
+                                                    selectedColor = 2;
+                                                  },
+                                                );
+                                              },
+                                              child: ColorPicker(
+                                                isActive: selectedColor == 2,
+                                                color: Colors.pink,
+                                              )),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: GestureDetector(
+                                              onTap: () {
+                                                setState(
+                                                  () {
+                                                    selectedColor = 3;
+                                                  },
+                                                );
+                                              },
+                                              child: ColorPicker(
+                                                isActive: selectedColor == 3,
+                                                color: Colors.yellow,
+                                              )),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: GestureDetector(
+                                              onTap: () {
+                                                setState(
+                                                  () {
+                                                    selectedColor = 4;
+                                                  },
+                                                );
+                                              },
+                                              child: ColorPicker(
+                                                isActive: selectedColor == 4,
+                                                color: Colors.purple,
+                                              )),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: GestureDetector(
+                                              onTap: () {
+                                                setState(() {
+                                                  selectedColor = 5;
+                                                });
+                                              },
+                                              child: ColorPicker(
+                                                isActive: selectedColor == 5,
+                                                color: Colors.green,
+                                              )),
+                                        ),
+                                      ],
+                                    ),
                                   ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: GestureDetector(
-                                        onTap: () {
-                                          setState(() {
-                                            selectedColor = 1;
-                                          });
-                                        },
-                                        child: const CircleAvatar(
-                                          radius: 15,
-                                          backgroundColor: Colors.blue,
-                                        )),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: GestureDetector(
-                                        onTap: () {
-                                          selectedColor = 2;
-                                        },
-                                        child: const CircleAvatar(
-                                          radius: 15,
-                                          backgroundColor: Colors.pink,
-                                        )),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: GestureDetector(
-                                        onTap: () {
-                                          selectedColor = 3;
-                                        },
-                                        child: const CircleAvatar(
-                                          radius: 15,
-                                          backgroundColor: Colors.amber,
-                                        )),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: GestureDetector(
-                                        onTap: () {
-                                          selectedColor = 4;
-                                        },
-                                        child: const CircleAvatar(
-                                          radius: 15,
-                                          backgroundColor: Colors.purple,
-                                        )),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: GestureDetector(
-                                        onTap: () {
-                                          selectedColor = 4;
-                                        },
-                                        child: const CircleAvatar(
-                                          radius: 15,
-                                          backgroundColor: Colors.green,
-                                        )),
-                                  ),
-                                ],
-                              ),
-                            ),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -917,14 +932,14 @@ class _CalendarScreenState extends State<CalendarScreen> {
     TextEditingController hourDateEndController = TextEditingController();
     TextEditingController urlController = TextEditingController();
     meetingNameController.text = calendarTapDetails.appointments![0].subject;
-    dateStartController.text =
-        formattedDate(calendarTapDetails.appointments![0].startTime);
-    dateEndController.text =
-        formattedDate(calendarTapDetails.appointments![0].endTime);
-    hourDateStartController.text =
-        formattedTime(calendarTapDetails.appointments![0].startTime);
-    hourDateEndController.text =
-        formattedTime(calendarTapDetails.appointments![0].endTime);
+    // dateStartController.text =
+    //     formattedDate(calendarTapDetails.appointments![0].startTime);
+    // dateEndController.text =
+    //     formattedDate(calendarTapDetails.appointments![0].endTime);
+    // hourDateStartController.text =
+    //     formattedTime(calendarTapDetails.appointments![0].startTime);
+    // hourDateEndController.text =
+    //     formattedTime(calendarTapDetails.appointments![0].endTime);
     urlController.text = calendarTapDetails.appointments![0].url;
 
     int? selectedColor;
@@ -942,130 +957,186 @@ class _CalendarScreenState extends State<CalendarScreen> {
                         AppointmentDetailProvider>(
                     builder:
                         (context, appointmentProvider, detailProvider, child) {
-                  return SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        SizedBox(
-                          width: 800,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 4.0),
-                                child: Row(
+                  return StatefulBuilder(
+                    builder: (context, setState) => SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          SizedBox(
+                            width: 800,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.symmetric(vertical: 4.0),
+                                  child: Row(
+                                    children: [
+                                      Text(
+                                        'Crea appuntamento',
+                                        style: TextStyle(
+                                            fontSize: 22,
+                                            fontWeight: FontWeight.bold,
+                                            color: Color.fromARGB(
+                                                255, 52, 52, 52)),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                //crea appuntamento
+                                const Text(
+                                  'Seleziona colore:',
+                                  style: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold,
+                                      color: Color.fromARGB(255, 52, 52, 52)),
+                                ),
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.symmetric(vertical: 4.0),
+                                  child:Row(
+                                      children: [
+                                        Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: GestureDetector(
+                                              onTap: () {
+                                                setState(() {
+                                                  selectedColor = 0;
+                                                });
+                                              },
+                                              child: ColorPicker(
+                                                isActive: selectedColor == 0,
+                                                color: Colors.red,
+                                              )),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: GestureDetector(
+                                              onTap: () {
+                                                setState(() {
+                                                  selectedColor = 1;
+                                                });
+                                              },
+                                              child: ColorPicker(
+                                                isActive: selectedColor == 1,
+                                                color: Colors.blue,
+                                              )),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: GestureDetector(
+                                              onTap: () {
+                                                setState(
+                                                  () {
+                                                    selectedColor = 2;
+                                                  },
+                                                );
+                                              },
+                                              child: ColorPicker(
+                                                isActive: selectedColor == 2,
+                                                color: Colors.pink,
+                                              )),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: GestureDetector(
+                                              onTap: () {
+                                                setState(
+                                                  () {
+                                                    selectedColor = 3;
+                                                  },
+                                                );
+                                              },
+                                              child: ColorPicker(
+                                                isActive: selectedColor == 3,
+                                                color: Colors.yellow,
+                                              )),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: GestureDetector(
+                                              onTap: () {
+                                                setState(
+                                                  () {
+                                                    selectedColor = 4;
+                                                  },
+                                                );
+                                              },
+                                              child: ColorPicker(
+                                                isActive: selectedColor == 4,
+                                                color: Colors.purple,
+                                              )),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: GestureDetector(
+                                              onTap: () {
+                                                setState(() {
+                                                  selectedColor = 5;
+                                                });
+                                              },
+                                              child: ColorPicker(
+                                                isActive: selectedColor == 5,
+                                                color: Colors.green,
+                                              )),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text(
-                                      'Crea appuntamento',
+                                    const Text(
+                                      'Nome evento',
                                       style: TextStyle(
-                                          fontSize: 22,
+                                          fontSize: 18,
                                           fontWeight: FontWeight.bold,
                                           color:
                                               Color.fromARGB(255, 52, 52, 52)),
                                     ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(top: 8.0),
+                                      child: Container(
+                                          width: 300,
+                                          height: 40,
+                                          decoration: BoxDecoration(
+                                              borderRadius:
+                                                  const BorderRadius.all(
+                                                      Radius.circular(4)),
+                                              border: Border.all(
+                                                  color: Colors.black,
+                                                  width: 0.2)),
+                                          child: TextField(
+                                            decoration: const InputDecoration(
+                                                border: InputBorder.none,
+                                                contentPadding:
+                                                    EdgeInsets.only(left: 6),
+                                                hintText:
+                                                    'Inserisci nome evento'),
+                                            controller: meetingNameController,
+                                          )),
+                                    )
                                   ],
                                 ),
-                              ),
-                              //crea appuntamento
-                              const Text(
-                                'Seleziona colore:',
-                                style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold,
-                                    color: Color.fromARGB(255, 52, 52, 52)),
-                              ),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 4.0),
-                                child: Row(
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: GestureDetector(
-                                          onTap: () {
-                                            setState(() {
-                                              selectedColor = 0;
-                                            });
-                                          },
-                                          child: const CircleAvatar(
-                                            radius: 15,
-                                            backgroundColor: Colors.red,
-                                          )),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: GestureDetector(
-                                          onTap: () {
-                                            setState(() {
-                                              selectedColor = 1;
-                                            });
-                                          },
-                                          child: const CircleAvatar(
-                                            radius: 15,
-                                            backgroundColor: Colors.blue,
-                                          )),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: GestureDetector(
-                                          onTap: () {
-                                            selectedColor = 2;
-                                          },
-                                          child: const CircleAvatar(
-                                            radius: 15,
-                                            backgroundColor: Colors.pink,
-                                          )),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: GestureDetector(
-                                          onTap: () {
-                                            selectedColor = 3;
-                                          },
-                                          child: const CircleAvatar(
-                                            radius: 15,
-                                            backgroundColor: Colors.amber,
-                                          )),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: GestureDetector(
-                                          onTap: () {
-                                            selectedColor = 4;
-                                          },
-                                          child: const CircleAvatar(
-                                            radius: 15,
-                                            backgroundColor: Colors.purple,
-                                          )),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: GestureDetector(
-                                          onTap: () {
-                                            selectedColor = 4;
-                                          },
-                                          child: const CircleAvatar(
-                                            radius: 15,
-                                            backgroundColor: Colors.green,
-                                          )),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  const Text(
-                                    'Nome evento',
-                                    style: TextStyle(
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.bold,
-                                        color: Color.fromARGB(255, 52, 52, 52)),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(top: 8.0),
-                                    child: Container(
-                                        width: 300,
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.symmetric(vertical: 4.0),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      const Padding(
+                                        padding: EdgeInsets.only(bottom: 8.0),
+                                        child: Text(
+                                          'Seleziona Data inizio:',
+                                          style: TextStyle(
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.bold,
+                                              color: Color.fromARGB(
+                                                  255, 52, 52, 52)),
+                                        ),
+                                      ),
+                                      Container(
+                                        width: 200,
                                         height: 40,
                                         decoration: BoxDecoration(
                                             borderRadius:
@@ -1075,207 +1146,101 @@ class _CalendarScreenState extends State<CalendarScreen> {
                                                 color: Colors.black,
                                                 width: 0.2)),
                                         child: TextField(
-                                          decoration: const InputDecoration(
-                                              border: InputBorder.none,
-                                              contentPadding:
-                                                  EdgeInsets.only(left: 6),
-                                              hintText:
-                                                  'Inserisci nome evento'),
-                                          controller: meetingNameController,
-                                        )),
-                                  )
-                                ],
-                              ),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 4.0),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    const Padding(
-                                      padding: EdgeInsets.only(bottom: 8.0),
-                                      child: Text(
-                                        'Seleziona Data inizio:',
-                                        style: TextStyle(
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.bold,
-                                            color: Color.fromARGB(
-                                                255, 52, 52, 52)),
-                                      ),
-                                    ),
-                                    Container(
-                                      width: 200,
-                                      height: 40,
-                                      decoration: BoxDecoration(
-                                          borderRadius: const BorderRadius.all(
-                                              Radius.circular(4)),
-                                          border: Border.all(
-                                              color: Colors.black, width: 0.2)),
-                                      child: TextField(
-                                        controller: dateStartController,
-                                        onTap: () async {
-                                          var isShowTimePicker = false;
-                                          DateTime? picked;
-                                          picked = await AppDatePickers
-                                              .showAndroidDatePicker(
-                                                  initialDate: DateTime(
-                                                    calendarTapDetails
-                                                        .date!.year,
-                                                    calendarTapDetails
-                                                        .date!.month,
-                                                    calendarTapDetails
-                                                        .date!.day,
-                                                    calendarTapDetails
-                                                        .date!.hour,
-                                                    calendarTapDetails
-                                                        .date!.minute,
-                                                  ),
-                                                  context: context,
-                                                  firstDate: DateTime.now());
-                                          if (picked != null &&
-                                              picked != selectedStartDate) {
-                                            selectedStartDate = picked;
-                                            setState(() {
-                                              dateStartController.text =
-                                                  formattedDate(
-                                                      selectedStartDate);
-                                              isShowTimePicker = true;
-                                            });
-                                            if (isShowTimePicker && mounted) {
-                                              TimeOfDay? pickedTime =
-                                                  await showTimePicker(
-                                                      context: context,
-                                                      initialTime:
-                                                          TimeOfDay.now());
-                                              if (pickedTime != null &&
-                                                  mounted) {
-                                                DateTime parsedTime =
-                                                    DateFormat.jm().parse(
-                                                        pickedTime
-                                                            .format(context)
-                                                            .toString());
-                                                String formattedHour =
-                                                    formattedTime(parsedTime);
-                                                setState(() {
-                                                  hourDateStartController.text =
-                                                      formattedHour;
-                                                });
+                                          controller: dateStartController,
+                                          onTap: () async {
+                                            var isShowTimePicker = false;
+                                            DateTime? picked;
+                                            picked = await AppDatePickers
+                                                .showAndroidDatePicker(
+                                                    initialDate: DateTime(
+                                                      calendarTapDetails
+                                                          .date!.year,
+                                                      calendarTapDetails
+                                                          .date!.month,
+                                                      calendarTapDetails
+                                                          .date!.day,
+                                                      calendarTapDetails
+                                                          .date!.hour,
+                                                      calendarTapDetails
+                                                          .date!.minute,
+                                                    ),
+                                                    context: context,
+                                                    firstDate: DateTime.now());
+                                            if (picked != null &&
+                                                picked != selectedStartDate) {
+                                              selectedStartDate = picked;
+                                              setState(() {
+                                                dateStartController.text =
+                                                    formattedDate(
+                                                        selectedStartDate);
+                                                isShowTimePicker = true;
+                                              });
+                                              if (isShowTimePicker && mounted) {
+                                                TimeOfDay? pickedTime =
+                                                    await showTimePicker(
+                                                        context: context,
+                                                        initialTime:
+                                                            TimeOfDay.now());
+                                                if (pickedTime != null &&
+                                                    mounted) {
+                                                  DateTime parsedTime =
+                                                      DateFormat.jm().parse(
+                                                          pickedTime
+                                                              .format(context)
+                                                              .toString());
+                                                  String formattedHour =
+                                                      formattedTime(parsedTime);
+                                                  setState(() {
+                                                    hourDateStartController
+                                                        .text = formattedHour;
+                                                  });
+                                                }
                                               }
                                             }
-                                          }
-                                        },
-                                        decoration: InputDecoration(
-                                            contentPadding:
-                                                const EdgeInsets.only(left: 6),
-                                            hintText: formattedDate(DateTime(
-                                              calendarTapDetails.date!.year,
-                                              calendarTapDetails.date!.month,
-                                              calendarTapDetails.date!.day,
-                                              calendarTapDetails.date!.hour,
-                                              calendarTapDetails.date!.minute,
-                                            )),
-                                            border: InputBorder.none),
+                                          },
+                                          decoration: InputDecoration(
+                                              contentPadding:
+                                                  const EdgeInsets.only(
+                                                      left: 6),
+                                              hintText: formattedDate(DateTime(
+                                                calendarTapDetails.date!.year,
+                                                calendarTapDetails.date!.month,
+                                                calendarTapDetails.date!.day,
+                                                calendarTapDetails.date!.hour,
+                                                calendarTapDetails.date!.minute,
+                                              )),
+                                              border: InputBorder.none),
+                                        ),
                                       ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Text(
-                                'Seleziona ora inizio',
-                                style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold,
-                                    color: Color.fromARGB(255, 52, 52, 52)),
-                              ),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 4.0),
-                                child: Container(
-                                  width: 70,
-                                  height: 40,
-                                  decoration: BoxDecoration(
-                                      borderRadius: const BorderRadius.all(
-                                          Radius.circular(4)),
-                                      border: Border.all(
-                                          color: Colors.black, width: 0.2)),
-                                  child: TextField(
-                                    controller: hourDateStartController,
-                                    onTap: () async {
-                                      TimeOfDay? pickedTime =
-                                          await showTimePicker(
-                                              context: context,
-                                              initialTime: TimeOfDay.now());
-                                      if (pickedTime != null && mounted) {
-                                        DateTime parsedTime = DateFormat.jm()
-                                            .parse(pickedTime
-                                                .format(context)
-                                                .toString());
-                                        String formattedHour =
-                                            formattedTime(parsedTime);
-                                        setState(() {
-                                          hourDateStartController.text =
-                                              formattedHour;
-                                        });
-                                      }
-                                    },
-                                    decoration: InputDecoration(
-                                        contentPadding:
-                                            const EdgeInsets.only(left: 6),
-                                        hintText: formattedTime(DateTime(
-                                          calendarTapDetails.date!.year,
-                                          calendarTapDetails.date!.month,
-                                          calendarTapDetails.date!.day,
-                                          calendarTapDetails.date!.hour,
-                                          calendarTapDetails.date!.minute,
-                                        )),
-                                        border: InputBorder.none),
+                                    ],
                                   ),
                                 ),
-                              ),
-
-                              Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 4.0),
-                                child: Text(
-                                  'Seleziona data fine',
+                                Text(
+                                  'Seleziona ora inizio',
                                   style: TextStyle(
                                       fontSize: 18,
                                       fontWeight: FontWeight.bold,
                                       color: Color.fromARGB(255, 52, 52, 52)),
                                 ),
-                              ),
-                              Container(
-                                width: 200,
-                                height: 40,
-                                decoration: BoxDecoration(
-                                    borderRadius: const BorderRadius.all(
-                                        Radius.circular(4)),
-                                    border: Border.all(
-                                        color: Colors.black, width: 0.2)),
-                                child: TextField(
-                                  controller: dateEndController,
-                                  onTap: () async {
-                                    var isShowTimePicker = false;
-                                    DateTime? picked;
-                                    picked = await AppDatePickers
-                                        .showAndroidDatePicker(
-                                            initialDate: selectedStartDate,
-                                            context: context,
-                                            firstDate: DateTime.now());
-                                    if (picked != null &&
-                                        picked != selectedStartDate) {
-                                      selectedStartDate = picked;
-                                      setState(() {
-                                        dateEndController.text =
-                                            formattedDate(selectedStartDate);
-                                        isShowTimePicker = true;
-                                      });
-                                      if (isShowTimePicker && mounted) {
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.symmetric(vertical: 4.0),
+                                  child: Container(
+                                    width: 70,
+                                    height: 40,
+                                    decoration: BoxDecoration(
+                                        borderRadius: const BorderRadius.all(
+                                            Radius.circular(4)),
+                                        border: Border.all(
+                                            color: Colors.black, width: 0.2)),
+                                    child: TextField(
+                                      controller: hourDateStartController,
+                                      onTap: () async {
                                         TimeOfDay? pickedTime =
                                             await showTimePicker(
                                                 context: context,
                                                 initialTime: TimeOfDay.now());
-                                        if (pickedTime != null) {
+                                        if (pickedTime != null && mounted) {
                                           DateTime parsedTime = DateFormat.jm()
                                               .parse(pickedTime
                                                   .format(context)
@@ -1283,78 +1248,38 @@ class _CalendarScreenState extends State<CalendarScreen> {
                                           String formattedHour =
                                               formattedTime(parsedTime);
                                           setState(() {
-                                            hourDateEndController.text =
+                                            hourDateStartController.text =
                                                 formattedHour;
                                           });
                                         }
-                                      }
-                                    }
-                                  },
-                                  decoration: InputDecoration(
-                                      contentPadding:
-                                          const EdgeInsets.only(left: 6),
-                                      hintText: formattedDate(defaulStartTime),
-                                      border: InputBorder.none),
+                                      },
+                                      decoration: InputDecoration(
+                                          contentPadding:
+                                              const EdgeInsets.only(left: 6),
+                                          hintText: formattedTime(DateTime(
+                                            calendarTapDetails.date!.year,
+                                            calendarTapDetails.date!.month,
+                                            calendarTapDetails.date!.day,
+                                            calendarTapDetails.date!.hour,
+                                            calendarTapDetails.date!.minute,
+                                          )),
+                                          border: InputBorder.none),
+                                    ),
+                                  ),
                                 ),
-                              ),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 4.0),
-                                child: Text(
-                                  'Seleziona ora fine',
-                                  style: TextStyle(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold,
-                                      color: Color.fromARGB(255, 52, 52, 52)),
+
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.symmetric(vertical: 4.0),
+                                  child: Text(
+                                    'Seleziona data fine',
+                                    style: TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold,
+                                        color: Color.fromARGB(255, 52, 52, 52)),
+                                  ),
                                 ),
-                              ),
-                              Container(
-                                width: 70,
-                                height: 40,
-                                decoration: BoxDecoration(
-                                    borderRadius: const BorderRadius.all(
-                                        Radius.circular(4)),
-                                    border: Border.all(
-                                        color: Colors.black, width: 0.2)),
-                                child: TextField(
-                                  controller: hourDateEndController,
-                                  onTap: () async {
-                                    TimeOfDay? pickedTime =
-                                        await showTimePicker(
-                                            context: context,
-                                            initialTime: TimeOfDay.now());
-                                    if (pickedTime != null) {
-                                      DateTime parsedTime = DateFormat.jm()
-                                          .parse(pickedTime
-                                              .format(context)
-                                              .toString());
-                                      String formattedHour =
-                                          formattedTime(parsedTime);
-                                      setState(() {
-                                        hourDateEndController.text =
-                                            formattedHour;
-                                      });
-                                    }
-                                  },
-                                  decoration: InputDecoration(
-                                      contentPadding:
-                                          const EdgeInsets.only(left: 6),
-                                      hintText: formattedTime(defaultEndTime),
-                                      border: InputBorder.none),
-                                ),
-                              ),
-                              Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 4.0),
-                                child: Text(
-                                  'Url',
-                                  style: TextStyle(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold,
-                                      color: Color.fromARGB(255, 52, 52, 52)),
-                                ),
-                              ),
-                              Container(
+                                Container(
                                   width: 200,
                                   height: 40,
                                   decoration: BoxDecoration(
@@ -1363,250 +1288,372 @@ class _CalendarScreenState extends State<CalendarScreen> {
                                       border: Border.all(
                                           color: Colors.black, width: 0.2)),
                                   child: TextField(
-                                    decoration: const InputDecoration(
-                                        border: InputBorder.none,
+                                    controller: dateEndController,
+                                    onTap: () async {
+                                      var isShowTimePicker = false;
+                                      DateTime? picked;
+                                      picked = await AppDatePickers
+                                          .showAndroidDatePicker(
+                                              initialDate: selectedStartDate,
+                                              context: context,
+                                              firstDate: DateTime.now());
+                                      if (picked != null &&
+                                          picked != selectedStartDate) {
+                                        selectedStartDate = picked;
+                                        setState(() {
+                                          dateEndController.text =
+                                              formattedDate(selectedStartDate);
+                                          isShowTimePicker = true;
+                                        });
+                                        if (isShowTimePicker && mounted) {
+                                          TimeOfDay? pickedTime =
+                                              await showTimePicker(
+                                                  context: context,
+                                                  initialTime: TimeOfDay.now());
+                                          if (pickedTime != null) {
+                                            DateTime parsedTime =
+                                                DateFormat.jm().parse(pickedTime
+                                                    .format(context)
+                                                    .toString());
+                                            String formattedHour =
+                                                formattedTime(parsedTime);
+                                            setState(() {
+                                              hourDateEndController.text =
+                                                  formattedHour;
+                                            });
+                                          }
+                                        }
+                                      }
+                                    },
+                                    decoration: InputDecoration(
                                         contentPadding:
-                                            EdgeInsets.only(left: 6),
-                                        hintText: 'enter url'),
-                                    controller: urlController,
-                                  )),
-                            ],
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 4.0),
-                          child: SizedBox(
-                            height: 200,
-                            width: 300,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                const Text(
-                                  'Partecipanti',
-                                  style: TextStyle(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold,
-                                      color: Color.fromARGB(255, 52, 52, 52)),
-                                ),
-                                detailProvider.userListById != null
-                                    ? detailProvider.userListById!.isNotEmpty
-                                        ? Padding(
-                                            padding:
-                                                const EdgeInsets.only(top: 5.0),
-                                            child: SizedBox(
-                                              height: 30,
-                                              child: ListView.builder(
-                                                scrollDirection:
-                                                    Axis.horizontal,
-                                                itemCount: detailProvider
-                                                        .userListById?.length ??
-                                                    0,
-                                                itemBuilder: (context, index) {
-                                                  return Padding(
-                                                    padding:
-                                                        const EdgeInsets.only(
-                                                            right: 8.0),
-                                                    child: Container(
-                                                      decoration: BoxDecoration(
-                                                        color: const Color
-                                                                .fromARGB(
-                                                            255, 198, 198, 198),
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(5),
-                                                      ),
-                                                      child: Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .all(4.0),
-                                                        child: Text(
-                                                          '${detailProvider.userListById![index].name} ${detailProvider.userListById![index].surname}',
-                                                          style:
-                                                              const TextStyle(
-                                                                  color: Colors
-                                                                      .white),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  );
-                                                },
-                                              ),
-                                            ),
-                                          )
-                                        : const SizedBox.shrink()
-                                    : SizedBox.shrink(),
-                                Padding(
-                                  padding: const EdgeInsets.only(top: 8.0),
-                                  child: GestureDetector(
-                                    onTapDown: _storePosition,
-                                    onLongPress: () async =>
-                                        await _showSelectUserListViewPopupMenu(
-                                            context, users),
-                                    child: const Text(
-                                      'Aggiungi partecipanti',
-                                      style: TextStyle(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.normal,
-                                          color: Colors.blue),
-                                    ),
+                                            const EdgeInsets.only(left: 6),
+                                        hintText:
+                                            formattedDate(defaulStartTime),
+                                        border: InputBorder.none),
                                   ),
                                 ),
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.symmetric(vertical: 4.0),
+                                  child: Text(
+                                    'Seleziona ora fine',
+                                    style: TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold,
+                                        color: Color.fromARGB(255, 52, 52, 52)),
+                                  ),
+                                ),
+                                Container(
+                                  width: 70,
+                                  height: 40,
+                                  decoration: BoxDecoration(
+                                      borderRadius: const BorderRadius.all(
+                                          Radius.circular(4)),
+                                      border: Border.all(
+                                          color: Colors.black, width: 0.2)),
+                                  child: TextField(
+                                    controller: hourDateEndController,
+                                    onTap: () async {
+                                      TimeOfDay? pickedTime =
+                                          await showTimePicker(
+                                              context: context,
+                                              initialTime: TimeOfDay.now());
+                                      if (pickedTime != null) {
+                                        DateTime parsedTime = DateFormat.jm()
+                                            .parse(pickedTime
+                                                .format(context)
+                                                .toString());
+                                        String formattedHour =
+                                            formattedTime(parsedTime);
+                                        setState(() {
+                                          hourDateEndController.text =
+                                              formattedHour;
+                                        });
+                                      }
+                                    },
+                                    decoration: InputDecoration(
+                                        contentPadding:
+                                            const EdgeInsets.only(left: 6),
+                                        hintText: formattedTime(defaultEndTime),
+                                        border: InputBorder.none),
+                                  ),
+                                ),
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.symmetric(vertical: 4.0),
+                                  child: Text(
+                                    'Url',
+                                    style: TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold,
+                                        color: Color.fromARGB(255, 52, 52, 52)),
+                                  ),
+                                ),
+                                Container(
+                                    width: 200,
+                                    height: 40,
+                                    decoration: BoxDecoration(
+                                        borderRadius: const BorderRadius.all(
+                                            Radius.circular(4)),
+                                        border: Border.all(
+                                            color: Colors.black, width: 0.2)),
+                                    child: TextField(
+                                      decoration: const InputDecoration(
+                                          border: InputBorder.none,
+                                          contentPadding:
+                                              EdgeInsets.only(left: 6),
+                                          hintText: 'enter url'),
+                                      controller: urlController,
+                                    )),
                               ],
                             ),
                           ),
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: MaterialButton(
-                                onPressed: () async {
-                                  DateTime correctedStartDate = defaulStartTime;
-                                  DateTime correctedEndDate = defaultEndTime;
-                                  DateFormat format =
-                                      DateFormat("dd-MM-yyyy hh:mm:ss");
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 4.0),
+                            child: SizedBox(
+                              height: 200,
+                              width: 300,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const Text(
+                                    'Partecipanti',
+                                    style: TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold,
+                                        color: Color.fromARGB(255, 52, 52, 52)),
+                                  ),
+                                  detailProvider.userListById != null
+                                      ? detailProvider.userListById!.isNotEmpty
+                                          ? Padding(
+                                              padding: const EdgeInsets.only(
+                                                  top: 5.0),
+                                              child: SizedBox(
+                                                height: 30,
+                                                child: ListView.builder(
+                                                  scrollDirection:
+                                                      Axis.horizontal,
+                                                  itemCount: detailProvider
+                                                          .userListById
+                                                          ?.length ??
+                                                      0,
+                                                  itemBuilder:
+                                                      (context, index) {
+                                                    return Padding(
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                              right: 8.0),
+                                                      child: Container(
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          color: const Color
+                                                                  .fromARGB(255,
+                                                              198, 198, 198),
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(5),
+                                                        ),
+                                                        child: Padding(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                  .all(4.0),
+                                                          child: Text(
+                                                            '${detailProvider.userListById![index].name} ${detailProvider.userListById![index].surname}',
+                                                            style:
+                                                                const TextStyle(
+                                                                    color: Colors
+                                                                        .white),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    );
+                                                  },
+                                                ),
+                                              ),
+                                            )
+                                          : const SizedBox.shrink()
+                                      : SizedBox.shrink(),
+                                  Padding(
+                                    padding: const EdgeInsets.only(top: 8.0),
+                                    child: GestureDetector(
+                                      onTapDown: _storePosition,
+                                      onLongPress: () async =>
+                                          await _showSelectUserListViewPopupMenu(
+                                              context, users),
+                                      child: const Text(
+                                        'Aggiungi partecipanti',
+                                        style: TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.normal,
+                                            color: Colors.blue),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: MaterialButton(
+                                  onPressed: () async {
+                                    DateTime correctedStartDate =
+                                        defaulStartTime;
+                                    DateTime correctedEndDate = defaultEndTime;
+                                    DateFormat format =
+                                        DateFormat("dd-MM-yyyy hh:mm:ss");
 
-                                  if (dateStartController.text.isNotEmpty) {
-                                    correctedStartDate = format.parse(
-                                        '${dateStartController.text} ${hourDateStartController.text}:00');
-                                  }
-                                  if (dateEndController.text.isNotEmpty) {
-                                    correctedEndDate = format.parse(
-                                        '${dateEndController.text} ${hourDateEndController.text}:00');
-                                  }
-                                  if (selectedIdsList.isNotEmpty &&
-                                      meetingNameController.text.isNotEmpty) {
-                                    for (var user in selectedIdsList) {
-                                      bool isUserNotFree = await context
-                                          .read<AppointmentListProvider>()
-                                          .checkAvailabilitySlot(
-                                              user,
-                                              correctedStartDate,
-                                              correctedEndDate);
-                                      if (isUserNotFree) {
-                                        //mostrare errore
-                                        return;
-                                      } else {
-                                        context
-                                            .read<NewAppointmentProvider>()
-                                            .publishAppoitnemt(
-                                                userIds: selectedIdsList,
-                                                id: firestoreId(),
-                                                color:
-                                                    chooseColor(selectedColor),
-                                                subject:
-                                                    meetingNameController.text,
-                                                startDate: correctedStartDate,
-                                                endDate: correctedEndDate,
-                                                url: urlController.text);
-                                      }
+                                    if (dateStartController.text.isNotEmpty) {
+                                      correctedStartDate = format.parse(
+                                          '${dateStartController.text} ${hourDateStartController.text}:00');
                                     }
-                                    await context
-                                        .read<AppointmentListProvider>()
-                                        .deleteAppointmentByMe(
-                                            calendarTapDetails
-                                                .appointments![0]);
-                                    selectedIdsList = [];
-                                    if (mounted) {
-                                      AutoRouter.of(context).pop(true);
+                                    if (dateEndController.text.isNotEmpty) {
+                                      correctedEndDate = format.parse(
+                                          '${dateEndController.text} ${hourDateEndController.text}:00');
+                                    }
+                                    if (selectedIdsList.isNotEmpty &&
+                                        meetingNameController.text.isNotEmpty) {
+                                      for (var user in selectedIdsList) {
+                                        bool isUserNotFree = await context
+                                            .read<AppointmentListProvider>()
+                                            .checkAvailabilitySlot(
+                                                user,
+                                                correctedStartDate,
+                                                correctedEndDate);
+                                        if (isUserNotFree) {
+                                          showDialog(
+                                            context: context,
+                                            builder: (context) => Container(
+                                              child: Text(
+                                                  'uno degli utenti è impegnato per questo slot temporale'),
+                                            ),
+                                          );
+                                          return;
+                                        } else {
+                                          context
+                                              .read<NewAppointmentProvider>()
+                                              .publishAppoitnemt(
+                                                  userIds: selectedIdsList,
+                                                  id: firestoreId(),
+                                                  color: chooseColor(
+                                                      selectedColor),
+                                                  subject: meetingNameController
+                                                      .text,
+                                                  startDate: correctedStartDate,
+                                                  endDate: correctedEndDate,
+                                                  url: urlController.text);
+                                        }
+                                      }
                                       await context
                                           .read<AppointmentListProvider>()
-                                          .getAppointmentsById(null);
+                                          .deleteAppointmentByMe(
+                                              calendarTapDetails
+                                                  .appointments![0]);
+                                      selectedIdsList = [];
+                                      if (mounted) {
+                                        AutoRouter.of(context).pop(true);
+                                        await context
+                                            .read<AppointmentListProvider>()
+                                            .getAppointmentsById(null);
+                                      }
                                     }
-                                  }
+                                  },
+                                  //   if (selectedIdsList.isNotEmpty &&
+                                  //       meetingNameController.text.isNotEmpty) {
+                                  //     if (dateStartController.text.isNotEmpty ||
+                                  //         dateEndController.text.isNotEmpty) {
+                                  //       DateFormat format =
+                                  //           DateFormat("dd-MM-yyyy hh:mm:ss");
+                                  //       var parsedStartDate = format.parse(
+                                  //           '${dateStartController.text} ${hourDateStartController.text}:00');
+                                  //       var parsedEndDate = format.parse(
+                                  //           '${dateEndController.text} ${hourDateEndController.text}:00');
+                                  //       context
+                                  //           .read<NewAppointmentProvider>()
+                                  //           .publishAppoitnemt(
+                                  //               userIds: selectedIdsList,
+                                  //               id: firestoreId(),
+                                  //               color: chooseColor(selectedColor),
+                                  //               subject:
+                                  //                   meetingNameController.text,
+                                  //               startDate: parsedStartDate,
+                                  //               endDate: parsedEndDate,
+                                  //               url: urlController.text);
+                                  //     } else {
+                                  //       await context
+                                  //           .read<NewAppointmentProvider>()
+                                  //           .publishAppoitnemt(
+                                  //               userIds: selectedIdsList,
+                                  //               id: firestoreId(),
+                                  //               color: chooseColor(selectedColor),
+                                  //               subject:
+                                  //                   meetingNameController.text,
+                                  //               startDate: defaulStartTime,
+                                  //               endDate: defaultEndTime,
+                                  //               url: urlController.text);
+                                  //     }
+                                  //     await context
+                                  //         .read<AppointmentListProvider>()
+                                  //         .deleteAppointmentByMe(
+                                  //             calendarTapDetails
+                                  //                 .appointments![0]);
+                                  //     if (mounted) {
+                                  //       AutoRouter.of(context).pop(true);
+                                  //       await context
+                                  //           .read<AppointmentListProvider>()
+                                  //           .getAppointmentsById(null);
+                                  //     }
+                                  //   }
+                                  // },
+                                  color: Colors.blue,
+                                  child: const Text(
+                                    'Conferma',
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                ),
+                              ),
+                              MaterialButton(
+                                onPressed: () {
+                                  AutoRouter.of(context).pop();
                                 },
-                                //   if (selectedIdsList.isNotEmpty &&
-                                //       meetingNameController.text.isNotEmpty) {
-                                //     if (dateStartController.text.isNotEmpty ||
-                                //         dateEndController.text.isNotEmpty) {
-                                //       DateFormat format =
-                                //           DateFormat("dd-MM-yyyy hh:mm:ss");
-                                //       var parsedStartDate = format.parse(
-                                //           '${dateStartController.text} ${hourDateStartController.text}:00');
-                                //       var parsedEndDate = format.parse(
-                                //           '${dateEndController.text} ${hourDateEndController.text}:00');
-                                //       context
-                                //           .read<NewAppointmentProvider>()
-                                //           .publishAppoitnemt(
-                                //               userIds: selectedIdsList,
-                                //               id: firestoreId(),
-                                //               color: chooseColor(selectedColor),
-                                //               subject:
-                                //                   meetingNameController.text,
-                                //               startDate: parsedStartDate,
-                                //               endDate: parsedEndDate,
-                                //               url: urlController.text);
-                                //     } else {
-                                //       await context
-                                //           .read<NewAppointmentProvider>()
-                                //           .publishAppoitnemt(
-                                //               userIds: selectedIdsList,
-                                //               id: firestoreId(),
-                                //               color: chooseColor(selectedColor),
-                                //               subject:
-                                //                   meetingNameController.text,
-                                //               startDate: defaulStartTime,
-                                //               endDate: defaultEndTime,
-                                //               url: urlController.text);
-                                //     }
-                                //     await context
-                                //         .read<AppointmentListProvider>()
-                                //         .deleteAppointmentByMe(
-                                //             calendarTapDetails
-                                //                 .appointments![0]);
-                                //     if (mounted) {
-                                //       AutoRouter.of(context).pop(true);
-                                //       await context
-                                //           .read<AppointmentListProvider>()
-                                //           .getAppointmentsById(null);
-                                //     }
-                                //   }
-                                // },
-                                color: Colors.blue,
+                                color: Colors.red,
                                 child: const Text(
-                                  'Conferma',
+                                  'Annulla',
                                   style: TextStyle(color: Colors.white),
                                 ),
                               ),
-                            ),
-                            MaterialButton(
-                              onPressed: () {
-                                AutoRouter.of(context).pop();
-                              },
-                              color: Colors.red,
-                              child: const Text(
-                                'Annulla',
-                                style: TextStyle(color: Colors.white),
+                              MaterialButton(
+                                onPressed: () async {
+                                  await context
+                                      .read<AppointmentListProvider>()
+                                      .deleteAppointmentByMe(
+                                          calendarTapDetails.appointments![0]);
+                                  if (mounted) {
+                                    AutoRouter.of(context).pop();
+                                  }
+                                },
+                                child: Container(
+                                    height: 40,
+                                    decoration: const BoxDecoration(
+                                        color: Colors.red,
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(7))),
+                                    child: const Padding(
+                                      padding: EdgeInsets.all(8.0),
+                                      child: Icon(
+                                        Icons.delete,
+                                        color: Colors.white,
+                                      ),
+                                    )),
                               ),
-                            ),
-                            MaterialButton(
-                              onPressed: () async {
-                                await context
-                                    .read<AppointmentListProvider>()
-                                    .deleteAppointmentByMe(
-                                        calendarTapDetails.appointments![0]);
-                                if (mounted) {
-                                  AutoRouter.of(context).pop();
-                                }
-                              },
-                              child: Container(
-                                  height: 40,
-                                  decoration: const BoxDecoration(
-                                      color: Colors.red,
-                                      borderRadius:
-                                          BorderRadius.all(Radius.circular(7))),
-                                  child: const Padding(
-                                    padding: EdgeInsets.all(8.0),
-                                    child: Icon(
-                                      Icons.delete,
-                                      color: Colors.white,
-                                    ),
-                                  )),
-                            ),
-                          ],
-                        ),
-                      ],
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
                   );
                 }),
@@ -1687,14 +1734,6 @@ class _CalendarScreenState extends State<CalendarScreen> {
                                         top: 25, left: 30.0),
                                     child: Row(
                                       children: [
-                                        const Text(
-                                          'Seleziona colore:',
-                                          style: TextStyle(
-                                              fontSize: 18,
-                                              fontWeight: FontWeight.bold,
-                                              color: Color.fromARGB(
-                                                  255, 52, 52, 52)),
-                                        ),
                                         Padding(
                                           padding: const EdgeInsets.all(8.0),
                                           child: GestureDetector(
@@ -1703,9 +1742,9 @@ class _CalendarScreenState extends State<CalendarScreen> {
                                                   selectedColor = 0;
                                                 });
                                               },
-                                              child: const CircleAvatar(
-                                                radius: 15,
-                                                backgroundColor: Colors.red,
+                                              child: ColorPicker(
+                                                isActive: selectedColor == 0,
+                                                color: Colors.red,
                                               )),
                                         ),
                                         Padding(
@@ -1716,53 +1755,67 @@ class _CalendarScreenState extends State<CalendarScreen> {
                                                   selectedColor = 1;
                                                 });
                                               },
-                                              child: const CircleAvatar(
-                                                radius: 15,
-                                                backgroundColor: Colors.blue,
+                                              child: ColorPicker(
+                                                isActive: selectedColor == 1,
+                                                color: Colors.blue,
                                               )),
                                         ),
                                         Padding(
                                           padding: const EdgeInsets.all(8.0),
                                           child: GestureDetector(
                                               onTap: () {
-                                                selectedColor = 2;
+                                                setState(
+                                                  () {
+                                                    selectedColor = 2;
+                                                  },
+                                                );
                                               },
-                                              child: const CircleAvatar(
-                                                radius: 15,
-                                                backgroundColor: Colors.pink,
+                                              child: ColorPicker(
+                                                isActive: selectedColor == 2,
+                                                color: Colors.pink,
                                               )),
                                         ),
                                         Padding(
                                           padding: const EdgeInsets.all(8.0),
                                           child: GestureDetector(
                                               onTap: () {
-                                                selectedColor = 3;
+                                                setState(
+                                                  () {
+                                                    selectedColor = 3;
+                                                  },
+                                                );
                                               },
-                                              child: const CircleAvatar(
-                                                radius: 15,
-                                                backgroundColor: Colors.amber,
+                                              child: ColorPicker(
+                                                isActive: selectedColor == 3,
+                                                color: Colors.yellow,
                                               )),
                                         ),
                                         Padding(
                                           padding: const EdgeInsets.all(8.0),
                                           child: GestureDetector(
                                               onTap: () {
-                                                selectedColor = 4;
+                                                setState(
+                                                  () {
+                                                    selectedColor = 4;
+                                                  },
+                                                );
                                               },
-                                              child: const CircleAvatar(
-                                                radius: 15,
-                                                backgroundColor: Colors.purple,
+                                              child: ColorPicker(
+                                                isActive: selectedColor == 4,
+                                                color: Colors.purple,
                                               )),
                                         ),
                                         Padding(
                                           padding: const EdgeInsets.all(8.0),
                                           child: GestureDetector(
                                               onTap: () {
-                                                selectedColor = 4;
+                                                setState(() {
+                                                  selectedColor = 5;
+                                                });
                                               },
-                                              child: const CircleAvatar(
-                                                radius: 15,
-                                                backgroundColor: Colors.green,
+                                              child: ColorPicker(
+                                                isActive: selectedColor == 5,
+                                                color: Colors.green,
                                               )),
                                         ),
                                       ],
@@ -2358,10 +2411,6 @@ class _CalendarScreenState extends State<CalendarScreen> {
                               padding: const EdgeInsets.all(8.0),
                               child: MaterialButton(
                                 onPressed: () async {
-                                  // await context
-                                  //     .read<AppointmentListProvider>()
-                                  //     .deleteAppointmentByMe(
-                                  //         calendarTapDetails.appointments![0]);
                                   List<String> userIdLoaded = [];
                                   for (var users
                                       in detailProvider.userListById!) {
@@ -2371,8 +2420,6 @@ class _CalendarScreenState extends State<CalendarScreen> {
                                   DateTime correctedEndDate = defaultEndTime;
                                   DateFormat format =
                                       DateFormat("dd-MM-yyyy hh:mm:ss");
-                                  bool isUserNotFree = false;
-
                                   if (dateStartController.text.isNotEmpty) {
                                     correctedStartDate = format.parse(
                                         '${dateStartController.text} ${hourDateStartController.text}:00');
@@ -2385,21 +2432,6 @@ class _CalendarScreenState extends State<CalendarScreen> {
 
                                   if (selectedIdsList.isNotEmpty &&
                                       meetingNameController.text.isNotEmpty) {
-                                    for (var user in selectedIdsList) {
-                                      isUserNotFree = await context
-                                          .read<AppointmentListProvider>()
-                                          .checkAvailabilitySlot(
-                                              user,
-                                              correctedStartDate,
-                                              correctedEndDate);
-                                      if (isUserNotFree) {
-                                        //mostrare errore
-                                        break;
-                                      }
-                                    }
-                                    if (isUserNotFree) {
-                                      return;
-                                    }
                                     context
                                         .read<NewAppointmentProvider>()
                                         .publishAppoitnemt(
@@ -2411,10 +2443,10 @@ class _CalendarScreenState extends State<CalendarScreen> {
                                             endDate: correctedEndDate,
                                             url: urlController.text);
                                     if (mounted) {
-                                      AutoRouter.of(context).pop(true);
-                                      await context
-                                          .read<AppointmentListProvider>()
-                                          .getAppointmentsById(null);
+                                      AutoRouter.of(context).pop(true).then(
+                                          (value) async => await context
+                                              .read<AppointmentListProvider>()
+                                              .getAppointmentsById(null));
                                     }
                                   }
                                 },
@@ -2472,14 +2504,14 @@ class _CalendarScreenState extends State<CalendarScreen> {
     TextEditingController hourDateEndController = TextEditingController();
     TextEditingController urlController = TextEditingController();
     meetingNameController.text = calendarTapDetails.appointments![0].subject;
-    dateStartController.text =
-        formattedDate(calendarTapDetails.appointments![0].startTime);
-    dateEndController.text =
-        formattedDate(calendarTapDetails.appointments![0].endTime);
-    hourDateStartController.text =
-        formattedTime(calendarTapDetails.appointments![0].startTime);
-    hourDateEndController.text =
-        formattedTime(calendarTapDetails.appointments![0].endTime);
+    // dateStartController.text =
+    //     formattedDate(calendarTapDetails.appointments![0].startTime);
+    // dateEndController.text =
+    //     formattedDate(calendarTapDetails.appointments![0].endTime);
+    // hourDateStartController.text =
+    //     formattedTime(calendarTapDetails.appointments![0].startTime);
+    // hourDateEndController.text =
+    //     formattedTime(calendarTapDetails.appointments![0].endTime);
     urlController.text = calendarTapDetails.appointments![0].url;
 
     int? selectedColor;
@@ -2527,14 +2559,6 @@ class _CalendarScreenState extends State<CalendarScreen> {
                                         top: 25, left: 30.0),
                                     child: Row(
                                       children: [
-                                        const Text(
-                                          'Seleziona colore:',
-                                          style: TextStyle(
-                                              fontSize: 18,
-                                              fontWeight: FontWeight.bold,
-                                              color: Color.fromARGB(
-                                                  255, 52, 52, 52)),
-                                        ),
                                         Padding(
                                           padding: const EdgeInsets.all(8.0),
                                           child: GestureDetector(
@@ -2543,9 +2567,9 @@ class _CalendarScreenState extends State<CalendarScreen> {
                                                   selectedColor = 0;
                                                 });
                                               },
-                                              child: const CircleAvatar(
-                                                radius: 15,
-                                                backgroundColor: Colors.red,
+                                              child: ColorPicker(
+                                                isActive: selectedColor == 0,
+                                                color: Colors.red,
                                               )),
                                         ),
                                         Padding(
@@ -2556,53 +2580,67 @@ class _CalendarScreenState extends State<CalendarScreen> {
                                                   selectedColor = 1;
                                                 });
                                               },
-                                              child: const CircleAvatar(
-                                                radius: 15,
-                                                backgroundColor: Colors.blue,
+                                              child: ColorPicker(
+                                                isActive: selectedColor == 1,
+                                                color: Colors.blue,
                                               )),
                                         ),
                                         Padding(
                                           padding: const EdgeInsets.all(8.0),
                                           child: GestureDetector(
                                               onTap: () {
-                                                selectedColor = 2;
+                                                setState(
+                                                  () {
+                                                    selectedColor = 2;
+                                                  },
+                                                );
                                               },
-                                              child: const CircleAvatar(
-                                                radius: 15,
-                                                backgroundColor: Colors.pink,
+                                              child: ColorPicker(
+                                                isActive: selectedColor == 2,
+                                                color: Colors.pink,
                                               )),
                                         ),
                                         Padding(
                                           padding: const EdgeInsets.all(8.0),
                                           child: GestureDetector(
                                               onTap: () {
-                                                selectedColor = 3;
+                                                setState(
+                                                  () {
+                                                    selectedColor = 3;
+                                                  },
+                                                );
                                               },
-                                              child: const CircleAvatar(
-                                                radius: 15,
-                                                backgroundColor: Colors.amber,
+                                              child: ColorPicker(
+                                                isActive: selectedColor == 3,
+                                                color: Colors.yellow,
                                               )),
                                         ),
                                         Padding(
                                           padding: const EdgeInsets.all(8.0),
                                           child: GestureDetector(
                                               onTap: () {
-                                                selectedColor = 4;
+                                                setState(
+                                                  () {
+                                                    selectedColor = 4;
+                                                  },
+                                                );
                                               },
-                                              child: const CircleAvatar(
-                                                radius: 15,
-                                                backgroundColor: Colors.purple,
+                                              child: ColorPicker(
+                                                isActive: selectedColor == 4,
+                                                color: Colors.purple,
                                               )),
                                         ),
                                         Padding(
                                           padding: const EdgeInsets.all(8.0),
                                           child: GestureDetector(
                                               onTap: () {
-                                                selectedColor = 4;
+                                                setState(() {
+                                                  selectedColor = 5;
+                                                });
                                               },
-                                              child: const CircleAvatar(
-                                                radius: 15,
-                                                backgroundColor: Colors.green,
+                                              child: ColorPicker(
+                                                isActive: selectedColor == 5,
+                                                color: Colors.green,
                                               )),
                                         ),
                                       ],
@@ -2642,15 +2680,11 @@ class _CalendarScreenState extends State<CalendarScreen> {
                                                   child: TextField(
                                                     decoration:
                                                         const InputDecoration(
-                                                            border: InputBorder
-                                                                .none,
-                                                            contentPadding:
-                                                                EdgeInsets.only(
-                                                                    left: 6),
-                                                            hintText:
-                                                                'Inserisci nome evento'),
-                                                    controller:
-                                                        meetingNameController,
+                                                            border: InputBorder.none,
+                                                            contentPadding:EdgeInsets.only( left: 6),
+                                                            hintText:'Inserisci nome evento'),
+                                                    controller: meetingNameController,
+                                                    
                                                   )),
                                             )
                                           ],
@@ -2899,8 +2933,18 @@ class _CalendarScreenState extends State<CalendarScreen> {
                                                   DateTime? picked;
                                                   picked = await AppDatePickers
                                                       .showAndroidDatePicker(
-                                                          initialDate:
-                                                              selectedStartDate,
+                                                          initialDate: DateTime(
+                                                            calendarTapDetails
+                                                                .date!.year,
+                                                            calendarTapDetails
+                                                                .date!.month,
+                                                            calendarTapDetails
+                                                                .date!.day,
+                                                            calendarTapDetails
+                                                                .date!.hour,
+                                                            calendarTapDetails
+                                                                .date!.minute,
+                                                          ),
                                                           context: context,
                                                           firstDate:
                                                               DateTime.now());
@@ -3233,9 +3277,17 @@ class _CalendarScreenState extends State<CalendarScreen> {
                                               correctedStartDate,
                                               correctedEndDate);
                                       if (isUserNotFree) {
-                                        //mostrare errore
-                                        break;
+                                        showDialog(
+                                          context: context,
+                                          builder: (context) => Container(
+                                            child: Text(
+                                                'uno degli utenti è impegnato per questo slot temporale'),
+                                          ),
+                                        );
+                                        return;
                                       }
+                                      //mostrare errore
+                                      break;
                                     }
                                     if (isUserNotFree) {
                                       return;

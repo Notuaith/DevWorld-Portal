@@ -63,13 +63,14 @@ class AppointmentListProvider with ChangeNotifier {
 
   Future<bool> checkAvailabilitySlot(
       String userIds, DateTime startDate, DateTime endDate) async {
-    var appointmentByUserId =
-        await appointmentService!.getAllAppointmentById(userId: userIds);
-    return appointmentByUserId.any((element) =>
-        (startDate.isAfter(element.startTime) &&
-            startDate.isBefore(element.endTime)) ||
-        (endDate.isAfter(element.startTime) &&
-            endDate.isBefore(element.endTime)));
+    // var appointmentByUserId =
+    //     await appointmentService!.getAllAppointmentById(userId: userIds);
+    // return appointmentByUserId.any((element) =>
+    //     (startDate.isAfter(element.startTime) &&
+    //         startDate.isBefore(element.endTime)) ||
+    //     (endDate.isAfter(element.startTime) &&
+    //         endDate.isBefore(element.endTime)));
+    return false;
   }
 
   deleteAppointmentByMe(AppointmentModel appointment) async {
