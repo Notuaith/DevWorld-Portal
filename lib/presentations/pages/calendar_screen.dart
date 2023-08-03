@@ -171,7 +171,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                               padding: const EdgeInsets.all(8.0),
                               child: GestureDetector(
                                 onTapDown: _storePosition,
-                                onLongPress: () async =>
+                                onTap: () async =>
                                     await _showSelectUserToViewPopupMenu(
                                         context, users.userList!),
                                 child: Container(
@@ -337,95 +337,95 @@ class _CalendarScreenState extends State<CalendarScreen> {
                             Padding(
                               padding:
                                   const EdgeInsets.symmetric(vertical: 4.0),
-                              child:Row(
-                                      children: [
-                                        Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: GestureDetector(
-                                              onTap: () {
-                                                setState(() {
-                                                  selectedColor = 0;
-                                                });
-                                              },
-                                              child: ColorPicker(
-                                                isActive: selectedColor == 0,
-                                                color: Colors.red,
-                                              )),
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: GestureDetector(
-                                              onTap: () {
-                                                setState(() {
-                                                  selectedColor = 1;
-                                                });
-                                              },
-                                              child: ColorPicker(
-                                                isActive: selectedColor == 1,
-                                                color: Colors.blue,
-                                              )),
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: GestureDetector(
-                                              onTap: () {
-                                                setState(
-                                                  () {
-                                                    selectedColor = 2;
-                                                  },
-                                                );
-                                              },
-                                              child: ColorPicker(
-                                                isActive: selectedColor == 2,
-                                                color: Colors.pink,
-                                              )),
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: GestureDetector(
-                                              onTap: () {
-                                                setState(
-                                                  () {
-                                                    selectedColor = 3;
-                                                  },
-                                                );
-                                              },
-                                              child: ColorPicker(
-                                                isActive: selectedColor == 3,
-                                                color: Colors.yellow,
-                                              )),
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: GestureDetector(
-                                              onTap: () {
-                                                setState(
-                                                  () {
-                                                    selectedColor = 4;
-                                                  },
-                                                );
-                                              },
-                                              child: ColorPicker(
-                                                isActive: selectedColor == 4,
-                                                color: Colors.purple,
-                                              )),
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: GestureDetector(
-                                              onTap: () {
-                                                setState(() {
-                                                  selectedColor = 5;
-                                                });
-                                              },
-                                              child: ColorPicker(
-                                                isActive: selectedColor == 5,
-                                                color: Colors.green,
-                                              )),
-                                        ),
-                                      ],
-                                    ),
+                              child: Row(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: GestureDetector(
+                                        onTap: () {
+                                          setState(() {
+                                            selectedColor = 0;
+                                          });
+                                        },
+                                        child: ColorPicker(
+                                          isActive: selectedColor == 0,
+                                          color: Colors.red,
+                                        )),
                                   ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: GestureDetector(
+                                        onTap: () {
+                                          setState(() {
+                                            selectedColor = 1;
+                                          });
+                                        },
+                                        child: ColorPicker(
+                                          isActive: selectedColor == 1,
+                                          color: Colors.blue,
+                                        )),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: GestureDetector(
+                                        onTap: () {
+                                          setState(
+                                            () {
+                                              selectedColor = 2;
+                                            },
+                                          );
+                                        },
+                                        child: ColorPicker(
+                                          isActive: selectedColor == 2,
+                                          color: Colors.pink,
+                                        )),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: GestureDetector(
+                                        onTap: () {
+                                          setState(
+                                            () {
+                                              selectedColor = 3;
+                                            },
+                                          );
+                                        },
+                                        child: ColorPicker(
+                                          isActive: selectedColor == 3,
+                                          color: Colors.yellow,
+                                        )),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: GestureDetector(
+                                        onTap: () {
+                                          setState(
+                                            () {
+                                              selectedColor = 4;
+                                            },
+                                          );
+                                        },
+                                        child: ColorPicker(
+                                          isActive: selectedColor == 4,
+                                          color: Colors.purple,
+                                        )),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: GestureDetector(
+                                        onTap: () {
+                                          setState(() {
+                                            selectedColor = 5;
+                                          });
+                                        },
+                                        child: ColorPicker(
+                                          isActive: selectedColor == 5,
+                                          color: Colors.green,
+                                        )),
+                                  ),
+                                ],
+                              ),
+                            ),
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -803,7 +803,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                                 padding: const EdgeInsets.only(top: 8.0),
                                 child: GestureDetector(
                                   onTapDown: _storePosition,
-                                  onLongPress: () async =>
+                                  onTap: () async =>
                                       await _showSelectUserListViewPopupMenu(
                                           context, users),
                                   child: const Text(
@@ -993,95 +993,95 @@ class _CalendarScreenState extends State<CalendarScreen> {
                                 Padding(
                                   padding:
                                       const EdgeInsets.symmetric(vertical: 4.0),
-                                  child:Row(
-                                      children: [
-                                        Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: GestureDetector(
-                                              onTap: () {
-                                                setState(() {
-                                                  selectedColor = 0;
-                                                });
-                                              },
-                                              child: ColorPicker(
-                                                isActive: selectedColor == 0,
-                                                color: Colors.red,
-                                              )),
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: GestureDetector(
-                                              onTap: () {
-                                                setState(() {
-                                                  selectedColor = 1;
-                                                });
-                                              },
-                                              child: ColorPicker(
-                                                isActive: selectedColor == 1,
-                                                color: Colors.blue,
-                                              )),
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: GestureDetector(
-                                              onTap: () {
-                                                setState(
-                                                  () {
-                                                    selectedColor = 2;
-                                                  },
-                                                );
-                                              },
-                                              child: ColorPicker(
-                                                isActive: selectedColor == 2,
-                                                color: Colors.pink,
-                                              )),
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: GestureDetector(
-                                              onTap: () {
-                                                setState(
-                                                  () {
-                                                    selectedColor = 3;
-                                                  },
-                                                );
-                                              },
-                                              child: ColorPicker(
-                                                isActive: selectedColor == 3,
-                                                color: Colors.yellow,
-                                              )),
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: GestureDetector(
-                                              onTap: () {
-                                                setState(
-                                                  () {
-                                                    selectedColor = 4;
-                                                  },
-                                                );
-                                              },
-                                              child: ColorPicker(
-                                                isActive: selectedColor == 4,
-                                                color: Colors.purple,
-                                              )),
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: GestureDetector(
-                                              onTap: () {
-                                                setState(() {
-                                                  selectedColor = 5;
-                                                });
-                                              },
-                                              child: ColorPicker(
-                                                isActive: selectedColor == 5,
-                                                color: Colors.green,
-                                              )),
-                                        ),
-                                      ],
-                                    ),
+                                  child: Row(
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: GestureDetector(
+                                            onTap: () {
+                                              setState(() {
+                                                selectedColor = 0;
+                                              });
+                                            },
+                                            child: ColorPicker(
+                                              isActive: selectedColor == 0,
+                                              color: Colors.red,
+                                            )),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: GestureDetector(
+                                            onTap: () {
+                                              setState(() {
+                                                selectedColor = 1;
+                                              });
+                                            },
+                                            child: ColorPicker(
+                                              isActive: selectedColor == 1,
+                                              color: Colors.blue,
+                                            )),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: GestureDetector(
+                                            onTap: () {
+                                              setState(
+                                                () {
+                                                  selectedColor = 2;
+                                                },
+                                              );
+                                            },
+                                            child: ColorPicker(
+                                              isActive: selectedColor == 2,
+                                              color: Colors.pink,
+                                            )),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: GestureDetector(
+                                            onTap: () {
+                                              setState(
+                                                () {
+                                                  selectedColor = 3;
+                                                },
+                                              );
+                                            },
+                                            child: ColorPicker(
+                                              isActive: selectedColor == 3,
+                                              color: Colors.yellow,
+                                            )),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: GestureDetector(
+                                            onTap: () {
+                                              setState(
+                                                () {
+                                                  selectedColor = 4;
+                                                },
+                                              );
+                                            },
+                                            child: ColorPicker(
+                                              isActive: selectedColor == 4,
+                                              color: Colors.purple,
+                                            )),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: GestureDetector(
+                                            onTap: () {
+                                              setState(() {
+                                                selectedColor = 5;
+                                              });
+                                            },
+                                            child: ColorPicker(
+                                              isActive: selectedColor == 5,
+                                              color: Colors.green,
+                                            )),
+                                      ),
+                                    ],
                                   ),
+                                ),
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
@@ -1478,7 +1478,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                                     padding: const EdgeInsets.only(top: 8.0),
                                     child: GestureDetector(
                                       onTapDown: _storePosition,
-                                      onLongPress: () async =>
+                                      onTap: () async =>
                                           await _showSelectUserListViewPopupMenu(
                                               context, users),
                                       child: const Text(
@@ -2385,7 +2385,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                                             const EdgeInsets.only(top: 8.0),
                                         child: GestureDetector(
                                           onTapDown: _storePosition,
-                                          onLongPress: () async =>
+                                          onTap: () async =>
                                               await _showSelectUserListViewPopupMenu(
                                                   context, users),
                                           child: const Text(
@@ -2448,6 +2448,8 @@ class _CalendarScreenState extends State<CalendarScreen> {
                                               .read<AppointmentListProvider>()
                                               .getAppointmentsById(null));
                                     }
+                                  } else {
+                                    showEmptyFieldsDialog(context);
                                   }
                                 },
                                 color: Colors.blue,
@@ -2680,11 +2682,15 @@ class _CalendarScreenState extends State<CalendarScreen> {
                                                   child: TextField(
                                                     decoration:
                                                         const InputDecoration(
-                                                            border: InputBorder.none,
-                                                            contentPadding:EdgeInsets.only( left: 6),
-                                                            hintText:'Inserisci nome evento'),
-                                                    controller: meetingNameController,
-                                                    
+                                                            border: InputBorder
+                                                                .none,
+                                                            contentPadding:
+                                                                EdgeInsets.only(
+                                                                    left: 6),
+                                                            hintText:
+                                                                'Inserisci nome evento'),
+                                                    controller:
+                                                        meetingNameController,
                                                   )),
                                             )
                                           ],
@@ -3364,4 +3370,24 @@ class _CalendarScreenState extends State<CalendarScreen> {
       },
     );
   }
+}
+
+void showEmptyFieldsDialog(BuildContext context) {
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Text('Attenzione'),
+        content: Text('Compila tutti i campi prima di confermare.'),
+        actions: <Widget>[
+          TextButton(
+            child: Text('OK'),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+        ],
+      );
+    },
+  );
 }

@@ -100,275 +100,353 @@ class _AllDocumentsScreenState extends State<AllDocumentsScreen> {
                                               DeviceScreenType.tablet
                                       ? const EdgeInsets.all(0)
                                       : const EdgeInsets.only(top: 50.0),
-                                  child: Row(
-                                    children: [
-                                      GestureDetector(
-                                        onTap: () async {
-                                          await context
-                                              .read<DocumentListProvider>()
-                                              .cleanListProvider();
-                                          // AutoRouter.of(context).pop();
-                                          AutoRouter.of(context)
-                                              .replace(const MainRoute());
-                                        },
-                                        child: size.deviceScreenType ==
-                                                DeviceScreenType.mobile
-                                            ? const SizedBox.shrink()
-                                            : Padding(
-                                                padding: const EdgeInsets.only(
-                                                    left: 8.0),
-                                                child: Image.asset(
-                                                  'lib/resources/images/LogoDefinitivoBianco.png',
-                                                  width: 200,
-                                                ),
-                                              ),
-                                      ),
-                                      size.deviceScreenType ==
-                                              DeviceScreenType.mobile
-                                          ? const SizedBox()
-                                          : Padding(
-                                              padding:
-                                                  const EdgeInsets.all(8.0),
-                                              child: Text(
-                                                '${widget.userModel?.name ?? user.name} ${widget.userModel?.surname ?? user.surname}',
-                                                style: const TextStyle(
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize: 16),
-                                              ),
-                                            ),
-                                      Expanded(child: Container()),
-                                      size.deviceScreenType ==
-                                              DeviceScreenType.mobile
-                                          ? GestureDetector(
-                                              onTap: () async {
-                                                await showUploadNameDialog(user,
-                                                    widget.userModel?.uid);
-                                              },
-                                              child: Container(
-                                                decoration: BoxDecoration(
-                                                    color: Colors.white,
-                                                    borderRadius:
-                                                        const BorderRadius.all(
-                                                            Radius.circular(8)),
-                                                    border: Border.all(
-                                                        color: Colors.blue)),
-                                                child: const Center(
-                                                    child: Padding(
-                                                  padding: EdgeInsets.all(5.0),
-                                                  child: Icon(Icons.add),
-                                                )),
-                                              ),
-                                            )
-                                          : GestureDetector(
-                                              onTap: () async {
-                                                await showUploadNameDialog(user,
-                                                    widget.userModel?.uid);
-                                              },
-                                              child: Container(
-                                                height: 35,
-                                                width: 130,
-                                                decoration: BoxDecoration(
-                                                    color: Colors.white,
-                                                    borderRadius:
-                                                        const BorderRadius.all(
-                                                            Radius.circular(8)),
-                                                    border: Border.all(
-                                                        color: Colors.blue)),
-                                                child: const Center(
-                                                  child: Text(
-                                                    'Carica Documento',
-                                                    style: TextStyle(
-                                                        color: Colors.blue),
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                      size.deviceScreenType ==
-                                              DeviceScreenType.mobile
-                                          ? const SizedBox.shrink()
-                                          : Padding(
-                                              padding:
-                                                  const EdgeInsets.all(8.0),
-                                              child: Container(
-                                                width: 190,
-                                                height: 40,
-                                                decoration: BoxDecoration(
-                                                    border: Border.all(
-                                                        color: Colors.grey,
-                                                        width: 0.3),
-                                                    color: Colors.white,
-                                                    borderRadius:
-                                                        const BorderRadius.all(
-                                                            Radius.circular(
-                                                                10))),
-                                                child: Padding(
-                                                  padding:
-                                                      const EdgeInsets.only(
-                                                          left: 8.0),
-                                                  child: DropdownSearch<String>(
-                                                    items: month,
-                                                    dropdownDecoratorProps:
-                                                        const DropDownDecoratorProps(
-                                                      dropdownSearchDecoration:
-                                                          InputDecoration(
-                                                        hintText:
-                                                            'Filtra per mese',
-                                                        border:
-                                                            InputBorder.none,
-                                                      ),
-                                                    ),
-                                                    onChanged: (value) {
-                                                      selectedMonthValue =
-                                                          value;
-                                                    },
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                      size.deviceScreenType ==
-                                              DeviceScreenType.mobile
-                                          ? const SizedBox.shrink()
-                                          : Padding(
-                                              padding: const EdgeInsets.only(
-                                                  right: 8.0),
-                                              child: Container(
-                                                width: 190,
-                                                height: 40,
-                                                decoration: BoxDecoration(
-                                                    border: Border.all(
-                                                        color: Colors.grey,
-                                                        width: 0.3),
-                                                    color: Colors.white,
-                                                    borderRadius:
-                                                        const BorderRadius.all(
-                                                            Radius.circular(
-                                                                10))),
-                                                child: Padding(
-                                                  padding:
-                                                      const EdgeInsets.only(
-                                                          left: 8.0),
-                                                  child: DropdownSearch<String>(
-                                                    items: year,
-                                                    dropdownDecoratorProps:
-                                                        const DropDownDecoratorProps(
-                                                      dropdownSearchDecoration:
-                                                          InputDecoration(
-                                                        hintText:
-                                                            'Filtra per anno',
-                                                        border:
-                                                            InputBorder.none,
-                                                      ),
-                                                    ),
-                                                    onChanged: (value) {
-                                                      selectedYearValue = value;
-                                                    },
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                      Padding(
-                                        padding: size.deviceScreenType ==
-                                                DeviceScreenType.mobile
-                                            ? const EdgeInsets.only(left: 8.0)
-                                            : const EdgeInsets.only(right: 8.0),
-                                        child: Container(
-                                          width: size.deviceScreenType ==
-                                                  DeviceScreenType.mobile
-                                              ? 150
-                                              : 190,
-                                          height: 40,
-                                          decoration: BoxDecoration(
-                                              border: Border.all(
-                                                  color: Colors.grey,
-                                                  width: 0.3),
-                                              color: Colors.white,
-                                              borderRadius:
-                                                  const BorderRadius.all(
-                                                      Radius.circular(10))),
-                                          child: Padding(
-                                            padding: const EdgeInsets.only(
-                                                left: 8.0),
-                                            child: DropdownSearch<String>(
-                                              items: docType,
-                                              dropdownDecoratorProps:
-                                                  const DropDownDecoratorProps(
-                                                dropdownSearchDecoration:
-                                                    InputDecoration(
-                                                  hintText: 'Filtra Doc',
-                                                  border: InputBorder.none,
-                                                ),
-                                              ),
-                                              onChanged: (value) {
-                                                selectedTypeValue = value;
-                                              },
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: GestureDetector(
+                                  child: Expanded(
+                                    child: Row(
+                                      children: [
+                                        GestureDetector(
                                           onTap: () async {
                                             await context
                                                 .read<DocumentListProvider>()
-                                                .filterDocument(
-                                                  id: widget.userModel?.uid ??
-                                                      user.uid,
-                                                  type: selectedTypeValue,
-                                                  month: selectedMonthValue,
-                                                  year: selectedYearValue,
-                                                ); //selectedRoleValue);
+                                                .cleanListProvider();
+                                            // AutoRouter.of(context).pop();
+                                            AutoRouter.of(context)
+                                                .replace(const MainRoute());
                                           },
-                                          child: Container(
-                                            width: 100,
-                                            height: 40,
-                                            decoration: BoxDecoration(
-                                                border: Border.all(
-                                                    color: Colors.grey,
-                                                    width: 0.3),
-                                                color: Colors.blue,
-                                                borderRadius:
-                                                    const BorderRadius.all(
-                                                        Radius.circular(10))),
-                                            child: const Center(
+                                          child: size.deviceScreenType ==
+                                                  DeviceScreenType.mobile
+                                              ? const SizedBox.shrink()
+                                              : Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          left: 8.0),
+                                                  child: Image.asset(
+                                                    'lib/resources/images/LogoDefinitivoBianco.png',
+                                                    width: 200,
+                                                  ),
+                                                ),
+                                        ),
+                                        size.deviceScreenType ==
+                                                DeviceScreenType.mobile
+                                            ? const SizedBox()
+                                            : Padding(
+                                                padding:
+                                                    const EdgeInsets.all(8.0),
                                                 child: Text(
-                                              'Filtra',
-                                              style: TextStyle(
-                                                  color: Colors.white),
-                                            )),
+                                                  '${widget.userModel?.name ?? user.name} ${widget.userModel?.surname ?? user.surname}',
+                                                  style: const TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      fontSize: 16),
+                                                ),
+                                              ),
+                                        Expanded(
+                                          child: SingleChildScrollView(
+                                            scrollDirection: Axis.horizontal,
+                                            child: Row(
+                                              children: [
+                                                size.deviceScreenType ==
+                                                        DeviceScreenType.mobile
+                                                    ? GestureDetector(
+                                                        onTap: () async {
+                                                          await showUploadNameDialog(
+                                                              user,
+                                                              widget.userModel
+                                                                  ?.uid);
+                                                        },
+                                                        child: Container(
+                                                          decoration: BoxDecoration(
+                                                              color:
+                                                                  Colors.white,
+                                                              borderRadius:
+                                                                  const BorderRadius
+                                                                          .all(
+                                                                      Radius.circular(
+                                                                          8)),
+                                                              border: Border.all(
+                                                                  color: Colors
+                                                                      .blue)),
+                                                          child: const Center(
+                                                              child: Padding(
+                                                            padding:
+                                                                EdgeInsets.all(
+                                                                    5.0),
+                                                            child:
+                                                                Icon(Icons.add),
+                                                          )),
+                                                        ),
+                                                      )
+                                                    : GestureDetector(
+                                                        onTap: () async {
+                                                          await showUploadNameDialog(
+                                                              user,
+                                                              widget.userModel
+                                                                  ?.uid);
+                                                        },
+                                                        child: Container(
+                                                          height: 35,
+                                                          width: 130,
+                                                          decoration: BoxDecoration(
+                                                              color:
+                                                                  Colors.white,
+                                                              borderRadius:
+                                                                  const BorderRadius
+                                                                          .all(
+                                                                      Radius.circular(
+                                                                          8)),
+                                                              border: Border.all(
+                                                                  color: Colors
+                                                                      .blue)),
+                                                          child: const Center(
+                                                            child: Text(
+                                                              'Carica Documento',
+                                                              style: TextStyle(
+                                                                  color: Colors
+                                                                      .blue),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                size.deviceScreenType ==
+                                                        DeviceScreenType.mobile
+                                                    ? const SizedBox.shrink()
+                                                    : Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .all(8.0),
+                                                        child: Container(
+                                                          width: 190,
+                                                          height: 40,
+                                                          decoration: BoxDecoration(
+                                                              border: Border.all(
+                                                                  color: Colors
+                                                                      .grey,
+                                                                  width: 0.3),
+                                                              color:
+                                                                  Colors.white,
+                                                              borderRadius:
+                                                                  const BorderRadius
+                                                                          .all(
+                                                                      Radius.circular(
+                                                                          10))),
+                                                          child: Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                        .only(
+                                                                    left: 8.0),
+                                                            child:
+                                                                DropdownSearch<
+                                                                    String>(
+                                                              items: month,
+                                                              dropdownDecoratorProps:
+                                                                  const DropDownDecoratorProps(
+                                                                dropdownSearchDecoration:
+                                                                    InputDecoration(
+                                                                  hintText:
+                                                                      'Filtra per mese',
+                                                                  border:
+                                                                      InputBorder
+                                                                          .none,
+                                                                ),
+                                                              ),
+                                                              onChanged:
+                                                                  (value) {
+                                                                selectedMonthValue =
+                                                                    value;
+                                                              },
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                size.deviceScreenType ==
+                                                        DeviceScreenType.mobile
+                                                    ? const SizedBox.shrink()
+                                                    : Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                    .only(
+                                                                right: 8.0),
+                                                        child: Container(
+                                                          width: 190,
+                                                          height: 40,
+                                                          decoration: BoxDecoration(
+                                                              border: Border.all(
+                                                                  color: Colors
+                                                                      .grey,
+                                                                  width: 0.3),
+                                                              color:
+                                                                  Colors.white,
+                                                              borderRadius:
+                                                                  const BorderRadius
+                                                                          .all(
+                                                                      Radius.circular(
+                                                                          10))),
+                                                          child: Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                        .only(
+                                                                    left: 8.0),
+                                                            child:
+                                                                DropdownSearch<
+                                                                    String>(
+                                                              items: year,
+                                                              dropdownDecoratorProps:
+                                                                  const DropDownDecoratorProps(
+                                                                dropdownSearchDecoration:
+                                                                    InputDecoration(
+                                                                  hintText:
+                                                                      'Filtra per anno',
+                                                                  border:
+                                                                      InputBorder
+                                                                          .none,
+                                                                ),
+                                                              ),
+                                                              onChanged:
+                                                                  (value) {
+                                                                selectedYearValue =
+                                                                    value;
+                                                              },
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                Padding(
+                                                  padding:
+                                                      size.deviceScreenType ==
+                                                              DeviceScreenType
+                                                                  .mobile
+                                                          ? const EdgeInsets
+                                                              .only(left: 8.0)
+                                                          : const EdgeInsets
+                                                              .only(right: 8.0),
+                                                  child: Container(
+                                                    width:
+                                                        size.deviceScreenType ==
+                                                                DeviceScreenType
+                                                                    .mobile
+                                                            ? 150
+                                                            : 190,
+                                                    height: 40,
+                                                    decoration: BoxDecoration(
+                                                        border: Border.all(
+                                                            color: Colors.grey,
+                                                            width: 0.3),
+                                                        color: Colors.white,
+                                                        borderRadius:
+                                                            const BorderRadius
+                                                                    .all(
+                                                                Radius.circular(
+                                                                    10))),
+                                                    child: Padding(
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                              left: 8.0),
+                                                      child: DropdownSearch<
+                                                          String>(
+                                                        items: docType,
+                                                        dropdownDecoratorProps:
+                                                            const DropDownDecoratorProps(
+                                                          dropdownSearchDecoration:
+                                                              InputDecoration(
+                                                            hintText:
+                                                                'Filtra Doc',
+                                                            border: InputBorder
+                                                                .none,
+                                                          ),
+                                                        ),
+                                                        onChanged: (value) {
+                                                          selectedTypeValue =
+                                                              value;
+                                                        },
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(8.0),
+                                                  child: GestureDetector(
+                                                    onTap: () async {
+                                                      await context
+                                                          .read<
+                                                              DocumentListProvider>()
+                                                          .filterDocument(
+                                                            id: widget.userModel
+                                                                    ?.uid ??
+                                                                user.uid,
+                                                            type:
+                                                                selectedTypeValue,
+                                                            month:
+                                                                selectedMonthValue,
+                                                            year:
+                                                                selectedYearValue,
+                                                          ); //selectedRoleValue);
+                                                    },
+                                                    child: Container(
+                                                      width: 100,
+                                                      height: 40,
+                                                      decoration: BoxDecoration(
+                                                          border: Border.all(
+                                                              color:
+                                                                  Colors.grey,
+                                                              width: 0.3),
+                                                          color: Colors.blue,
+                                                          borderRadius:
+                                                              const BorderRadius
+                                                                      .all(
+                                                                  Radius
+                                                                      .circular(
+                                                                          10))),
+                                                      child: const Center(
+                                                          child: Text(
+                                                        'Filtra',
+                                                        style: TextStyle(
+                                                            color:
+                                                                Colors.white),
+                                                      )),
+                                                    ),
+                                                  ),
+                                                ),
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          right: 8.0),
+                                                  child: GestureDetector(
+                                                    onTap: () async {
+                                                      context
+                                                          .read<
+                                                              DocumentListProvider>()
+                                                          .filterDocument();
+                                                    },
+                                                    child: Container(
+                                                      width: 100,
+                                                      height: 40,
+                                                      decoration: BoxDecoration(
+                                                          border: Border.all(
+                                                              color:
+                                                                  Colors.blue,
+                                                              width: 1),
+                                                          color: Colors.white,
+                                                          borderRadius:
+                                                              const BorderRadius
+                                                                      .all(
+                                                                  Radius
+                                                                      .circular(
+                                                                          10))),
+                                                      child: const Center(
+                                                          child: Text(
+                                                        'Azzera filtri',
+                                                        style: TextStyle(
+                                                            color: Colors.blue),
+                                                      )),
+                                                    ),
+                                                  ),
+                                                )
+                                              ],
+                                            ),
                                           ),
                                         ),
-                                      ),
-                                      Padding(
-                                        padding:
-                                            const EdgeInsets.only(right: 8.0),
-                                        child: GestureDetector(
-                                          onTap: () async {
-                                            context
-                                                .read<DocumentListProvider>()
-                                                .filterDocument();
-                                          },
-                                          child: Container(
-                                            width: 100,
-                                            height: 40,
-                                            decoration: BoxDecoration(
-                                                border: Border.all(
-                                                    color: Colors.blue,
-                                                    width: 1),
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    const BorderRadius.all(
-                                                        Radius.circular(10))),
-                                            child: const Center(
-                                                child: Text(
-                                              'Azzera filtri',
-                                              style:
-                                                  TextStyle(color: Colors.blue),
-                                            )),
-                                          ),
-                                        ),
-                                      )
-                                    ],
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ),
@@ -416,7 +494,8 @@ class _AllDocumentsScreenState extends State<AllDocumentsScreen> {
                                                         .text18bold
                                                         .copyWith(
                                                             fontWeight:
-                                                                FontWeight.w600),
+                                                                FontWeight
+                                                                    .w600),
                                               ),
                                             ),
                                           ),
